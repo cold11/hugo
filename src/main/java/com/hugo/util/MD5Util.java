@@ -1,7 +1,8 @@
 package com.hugo.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
  * Created by Administrator on 2016/10/4.
  */
 public class MD5Util {
-    private static Logger logger = LogManager.getLogger(MD5Util.class);
+    private static  Log log = LogFactory.getLog(MD5Util.class);
     protected static char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
             'A', 'B', 'C', 'D', 'E', 'F' };
     protected static MessageDigest messagedigest = null;
@@ -23,7 +24,7 @@ public class MD5Util {
         try {
             messagedigest = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            logger.error("MD5FileUtil messagedigest初始化失败", e);
+            log.error("MD5FileUtil messagedigest初始化失败", e);
         }
     }
     public final static String MD5(String s) {

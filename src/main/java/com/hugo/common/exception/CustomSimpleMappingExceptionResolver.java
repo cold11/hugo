@@ -1,24 +1,26 @@
 package com.hugo.common.exception;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 /**
  * Created by Administrator on 2016/10/3.
  */
 public class CustomSimpleMappingExceptionResolver extends SimpleMappingExceptionResolver {
 
-    private static Logger log = LogManager.getLogger(CustomSimpleMappingExceptionResolver.class);
+    private Log log = LogFactory.getLog(CustomSimpleMappingExceptionResolver.class);
 
     protected ModelAndView doResolveException(HttpServletRequest request,
                                               HttpServletResponse response, Object handler, Exception ex) {
         try {
+
             //错误日记记录
             log.error("请求过程中发生错误：", ex);
 

@@ -2,8 +2,8 @@ package com.hugo.controller.base;
 
 import com.hugo.common.util.json.JsonUtil;
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -13,14 +13,17 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * æ‰€æœ‰Controllerç±»å¿…é¡»ç»§ç»­æ­¤ç±»
+ */
 public class BaseController {
 
-    //¼ÇÂ¼ÈÕÖ¾
-    public static Logger log = LogManager.getLogger(BaseController.class);
+    //è®°å½•æ—¥å¿—
+    public Log log = LogFactory.getLog(this.getClass());
 
 
     /**
-     * ·µ»Ø×Ö·û´®
+     * è¿”å›å­—ç¬¦ä¸²
      * @param response
      * @param json
      */
@@ -36,12 +39,12 @@ public class BaseController {
             out.flush();
             out.close();
         } catch (IOException e) {
-            log.error("json·µ»Ø×Ö·û´®´íÎó", e);
+            log.error("jsonè¿”å›å­—ç¬¦ä¸²é”™è¯¯", e);
         }
     }
 
     /**
-     * ·µ»Ø¼¯ºÏ
+     * è¿”å›é›†åˆ
      * @param response
      * @param jsons
      */
@@ -57,20 +60,20 @@ public class BaseController {
             out.flush();
             out.close();
         } catch (IOException e) {
-            log.error("json·µ»Ø¼¯ºÏ´íÎó", e);
+            log.error("jsonè¿”å›é›†åˆé”™è¯¯", e);
         }
     }
 
     /**
-     * ·µ»Ø¼¯ºÏ
+     * è¿”å›é›†åˆ
      * @param response
      * @param jsons
      */
     public void outJsonObject(HttpServletResponse response, Object jsons) {
         response.setContentType("application/json;charset=UTF-8");
         response.setHeader("Cache-Control","no-store max-age=0 no-cache must-revalidate");
-        response.addHeader("Cache-Control", "post-check=0 pre-check=0");
-        response.setHeader("Pragma", "no-cache");
+        response.addHeader("Cache-Control","post-check=0 pre-check=0");
+        response.setHeader("Pragma","no-cache");
 
         try {
             PrintWriter out = response.getWriter();
@@ -78,12 +81,12 @@ public class BaseController {
             out.flush();
             out.close();
         } catch (IOException e) {
-            log.error("json·µ»Ø¼¯ºÏ´íÎó", e);
+            log.error("jsonè¿”å›é›†åˆé”™è¯¯", e);
         }
     }
 
     /**
-     * ·µ»ØjsonµÄÊı¾İ
+     * è¿”å›jsonçš„æ•°æ®
      * @param success
      * @param msg
      * @return
@@ -96,7 +99,7 @@ public class BaseController {
     }
 
     /**
-     * ·µ»ØjsonµÄÊı¾İ
+     * è¿”å›jsonçš„æ•°æ®
      * @param success
      * @param msg
      * @return
@@ -110,7 +113,7 @@ public class BaseController {
     }
 
     /**
-     * ÎÄ¼şÔ¤ÀÀ
+     * æ–‡ä»¶é¢„è§ˆ
      * @param response
      * @param file
      * @param fileName
@@ -119,10 +122,10 @@ public class BaseController {
         InputStream in = null;
         OutputStream out = null;
         try {
-            response.reset(); //Çå¿Õresponse
+            response.reset(); //æ¸…ç©ºresponse
             response.setContentType("application/octet-stream");
-            response.setHeader("Connection", "close");   // ±íÊ¾²»ÄÜÓÃä¯ÀÀÆ÷Ö±½Ó´ò¿ª
-            response.setHeader("Accept-Ranges", "bytes");// ¸æËß¿Í»§¶ËÔÊĞí¶ÏµãĞø´«¶àÏß³ÌÁ¬½ÓÏÂÔØ
+            response.setHeader("Connection", "close");   // è¡¨ç¤ºä¸èƒ½ç”¨æµè§ˆå™¨ç›´æ¥æ‰“å¼€
+            response.setHeader("Accept-Ranges", "bytes");// å‘Šè¯‰å®¢æˆ·ç«¯å…è®¸æ–­ç‚¹ç»­ä¼ å¤šçº¿ç¨‹è¿æ¥ä¸‹è½½
             response.setHeader("Content-Disposition", "inline;filename=" + new String(fileName.getBytes("GB2312"), "ISO8859-1"));
             response.setHeader("Content-Length", "" + file.length());
             response.setCharacterEncoding("UTF-8");
@@ -147,7 +150,7 @@ public class BaseController {
     }
 
     /**
-     * ÎÄ¼şÏÂÔØ
+     * æ–‡ä»¶ä¸‹è½½
      * @param response
      * @param file
      * @param fileName
@@ -156,11 +159,13 @@ public class BaseController {
         InputStream in = null;
         OutputStream out = null;
         try {
-            response.reset(); //Çå¿Õresponse
-            response.setContentType("application/x-msdownload");
-            response.setHeader("Connection", "close");   // ±íÊ¾²»ÄÜÓÃä¯ÀÀÆ÷Ö±½Ó´ò¿ª
-            response.setHeader("Accept-Ranges", "bytes");// ¸æËß¿Í»§¶ËÔÊĞí¶ÏµãĞø´«¶àÏß³ÌÁ¬½ÓÏÂÔØ
-            response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("GB2312"), "ISO8859-1"));
+            response.reset(); //æ¸…ç©ºresponse
+            response.setContentType("multipart/form-data");
+            //response.setContentType("application/x-msdownload");
+            response.setHeader("Connection", "close");   // è¡¨ç¤ºä¸èƒ½ç”¨æµè§ˆå™¨ç›´æ¥æ‰“å¼€
+            response.setHeader("Accept-Ranges", "bytes");// å‘Šè¯‰å®¢æˆ·ç«¯å…è®¸æ–­ç‚¹ç»­ä¼ å¤šçº¿ç¨‹è¿æ¥ä¸‹è½½
+            response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("UTF-8"), "ISO8859-1"));
+            //response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("UTF-8"), "UTF-8"));
             response.setHeader("Content-Length", "" + file.length());
             response.setCharacterEncoding("UTF-8");
             in = new FileInputStream(file);
@@ -187,7 +192,7 @@ public class BaseController {
         InputStream in = null;
         OutputStream out = null;
         try {
-            response.reset(); //Çå¿Õresponse
+            response.reset(); //æ¸…ç©ºresponse
             response.setContentType("image/jpeg");
             in = new FileInputStream(filePath);
             out = response.getOutputStream();
@@ -210,7 +215,7 @@ public class BaseController {
     }
 
     /**
-     * ÎÄ¼şÏÂÔØ
+     * æ–‡ä»¶ä¸‹è½½
      * @param response
      * @param in
      * @param fileName
@@ -218,10 +223,10 @@ public class BaseController {
     public void downloadFile(HttpServletResponse response, InputStream in, String fileName) {
         OutputStream out = null;
         try {
-            response.reset(); //Çå¿Õresponse
+            response.reset(); //æ¸…ç©ºresponse
             response.setContentType("application/x-msdownload");
-            response.setHeader("Connection", "close");   // ±íÊ¾²»ÄÜÓÃä¯ÀÀÆ÷Ö±½Ó´ò¿ª
-            response.setHeader("Accept-Ranges", "bytes");// ¸æËß¿Í»§¶ËÔÊĞí¶ÏµãĞø´«¶àÏß³ÌÁ¬½ÓÏÂÔØ
+            response.setHeader("Connection", "close");   // è¡¨ç¤ºä¸èƒ½ç”¨æµè§ˆå™¨ç›´æ¥æ‰“å¼€
+            response.setHeader("Accept-Ranges", "bytes");// å‘Šè¯‰å®¢æˆ·ç«¯å…è®¸æ–­ç‚¹ç»­ä¼ å¤šçº¿ç¨‹è¿æ¥ä¸‹è½½
             response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("GB2312"), "ISO8859-1"));
             response.setCharacterEncoding("UTF-8");
             out = response.getOutputStream();
@@ -243,9 +248,8 @@ public class BaseController {
         }
     }
 
-
     /**
-     * ÏòÒ³Ãæ´òÓ¡ĞÅÏ¢
+     * å‘é¡µé¢æ‰“å°ä¿¡æ¯
      */
     public void printMes(HttpServletResponse response,String messsage){
 

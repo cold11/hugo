@@ -128,4 +128,5 @@
             <value>104857600</value>
         </property>
     </bean>
+    <!--<import resource="classpath:spring_conf/applicationContext-shiro.xml"/>-->
 </beans>

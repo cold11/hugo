@@ -1,7 +1,7 @@
 package com.hugo.dao.base;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -26,7 +26,7 @@ import java.util.*;
  */
 @Repository("baseDao")
 public class BaseDaoImpl implements IBaseDao {
-    public Logger log = LogManager.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
     @Resource
     protected SessionFactory sessionFactory;
 

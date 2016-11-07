@@ -1,7 +1,7 @@
 package com.hugo.interceptor;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LogInterceptor extends HandlerInterceptorAdapter {
-	
-	private static Logger log = LogManager.getLogger(LogInterceptor.class);
+
+    private Log log = LogFactory.getLog(this.getClass());
 
 	
 	private Long userId = null;//当前登陆用户id

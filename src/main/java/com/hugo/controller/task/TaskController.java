@@ -67,6 +67,12 @@ public class TaskController extends BaseController {
         }
         return jsonResult(success,"发布成功！");
     }
+
+    @RequestMapping("/trans/todo")
+    public String trans_todo(){
+        return "/task/trans_todo";
+    }
+
     @RequestMapping("/book")
     public String book(){
         return "/task/book";

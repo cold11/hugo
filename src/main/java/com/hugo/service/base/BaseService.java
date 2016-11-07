@@ -1,8 +1,8 @@
 package com.hugo.service.base;
 
 import com.hugo.dao.base.IBaseDao;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @Service("baseService")
 public class BaseService implements IBaseService {
 
-    public Logger log = LogManager.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(this.getClass());
 
     @Autowired
     private IBaseDao baseDao;

@@ -1,8 +1,8 @@
 package com.hugo.common.spring;
 
 import org.apache.commons.lang3.Validate;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -14,7 +14,7 @@ public class SpringContextUtil implements ApplicationContextAware, DisposableBea
 
     private static ApplicationContext applicationContext = null;
 
-    private static Logger logger = LogManager.getLogger(SpringContextUtil.class);
+    private static Log logger = LogFactory.getLog(SpringContextUtil.class);
 
     /**
      * 取得存储在静态变量中的ApplicationContext.

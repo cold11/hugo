@@ -8,8 +8,8 @@ import com.hugo.model.vo.SysUserVO;
 import com.hugo.service.ISysUserService;
 import com.hugo.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @Controller
 public class LoginController extends BaseController {
-    private static Logger log = LogManager.getLogger(LoginController.class);
+    private static Log log = LogFactory.getLog(LoginController.class);
     @Autowired
     private ISysUserService sysUserService;
     @RequestMapping("/login")

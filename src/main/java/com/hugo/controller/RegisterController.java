@@ -9,6 +9,8 @@ import com.hugo.util.ContextUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.hugo.common.util.FileUtil;
@@ -35,7 +37,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/signUp")
 public class RegisterController extends BaseController {
-    public Logger log = LogManager.getLogger(this.getClass());
+    private Log log = LogFactory.getLog(RegisterController.class);
     @Autowired
     private ISysUserService sysUserService;
     @RequestMapping("/regRelease")

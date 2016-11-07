@@ -41,9 +41,9 @@
 </head>
 </#macro>
 
-<#macro body class1="" class2="" class3="" class4="" class5="" class6="" class7="">
+<#macro body class1="" class2="" class3="" class4="" class5="" class6="" class7="" class8="">
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar">
-    <@header class1=class1 class2=class2 class3=class3 class4=class4 class5=class5 class6=class6 class7=class7></@header>
+    <@header class1=class1 class2=class2 class3=class3 class4=class4 class5=class5 class6=class6 class7=class7 class8=class8></@header>
 
 <!-- content -->
 <div class="c-layout-page">
@@ -54,7 +54,7 @@
 </html>
 </#macro>
 
-<#macro header class1="" class2="" class3="" class4="" class5="" class6="" class7="">
+<#macro header class1="" class2="" class3="" class4="" class5="" class6="" class7="" class8="">
 <!-- header -->
 <!-- top
 ================================================================================-->
@@ -98,15 +98,18 @@
                             <a href="edition-foreign.html" class="c-link">外版选题</a>
                         </li>
                         <li class="${class4}">
-                            <a href="task-to-do.html" class="c-link">翻译任务</a>
+                            <a href="appointment-modify.html" class="c-link">编辑约稿</a>
                         </li>
                         <li class="${class5}">
-                            <a href="team-list.html" class="c-link">翻译团队</a>
+                            <a href="${ctx}/task/trans/todo" class="c-link">翻译任务</a>
                         </li>
                         <li class="${class6}">
-                            <a href="publisher.html" class="c-link">出版商</a>
+                            <a href="team-list.html" class="c-link">翻译团队</a>
                         </li>
                         <li class="${class7}">
+                            <a href="publisher.html" class="c-link">出版商</a>
+                        </li>
+                        <li class="${class8}">
                             <a href="javascript:;" class="c-link">联系我们</a>
                         </li>
                     </ul>

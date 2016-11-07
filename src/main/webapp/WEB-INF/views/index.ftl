@@ -17,18 +17,26 @@
 <div class="c-content-box c-size-md c-bg-white">
     <div class="container">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="c-content-feature-1 text-center">
-                    <a href="release-book-topic.html">
-                        <span class="c-content-line-icon c-theme c-icon-screen-chart"></span>
-                        <span class="c-font-20">发布图书</span>
+                    <a href="${ctx}/task/book">
+                        <span class="c-content-line-icon c-theme c-icon-22"></span>
+                        <span class="c-font-20">发布作品</span>
                     </a>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="c-content-feature-1 text-center">
-                    <a href="release-translation-task.html">
-                        <span class="c-content-line-icon c-theme c-icon-bulb"></span>
+                    <a href="release-appointment.html">
+                        <span class="c-content-line-icon c-theme c-icon-screen-chart"></span>
+                        <span class="c-font-20">发布约稿</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="c-content-feature-1 text-center">
+                    <a href="${ctx}/task/trans">
+                        <span class="c-content-line-icon c-theme c-icon-40"></span>
                         <span class="c-font-20">发布翻译任务</span>
                     </a>
                 </div>
