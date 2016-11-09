@@ -22,6 +22,13 @@ $(function () {
                     }
                 }
             },
+            author: {
+                validators: {
+                    notEmpty: {
+                        message: '作者不能为空!'
+                    }
+                }
+            },
             sourceLanguage: {
                 validators: {
                     notEmpty: {

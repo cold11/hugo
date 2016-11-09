@@ -1,5 +1,6 @@
 package com.hugo.controller.base;
 
+import com.hugo.common.util.FileUtil;
 import com.hugo.common.util.json.JsonUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -192,8 +194,9 @@ public class BaseController {
         InputStream in = null;
         OutputStream out = null;
         try {
+
             response.reset(); //清空response
-            response.setContentType("image/jpeg");
+            response.setContentType(FileUtil.getContentType(filePath));
             in = new FileInputStream(filePath);
             out = response.getOutputStream();
             IOUtils.copy(in, out);

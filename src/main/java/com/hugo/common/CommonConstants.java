@@ -50,12 +50,14 @@ public class CommonConstants {
     /**
      * taskType
      */
-    /**
-     * 是否激活
-     */
+
     public static final Integer IS_TRANS_1= 1;//翻译任务
     public static final Integer IS_BOOK_2 = 2;//图书任务
     public static final Integer IS_EDIT_3 = 3;//编辑约稿
+
+    public static final Integer TASK_STATUS_0= 1;//初始状态
+    public static final Integer TASK_STATUS_1= 1;//已领取
+    public static final Integer TASK_STATUS = 2;//已完成
     /**
      * 默认cookie key
      */

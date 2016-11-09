@@ -56,6 +56,11 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <div class="col-xs-12">
+                            <input type="text" class="form-control" required id="author" name="author" placeholder="作者">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-xs-6">
                             <select class="form-control" name="sourceLanguage" id="sourceLanguage">
                                 <option value="" disabled selected>原文语种</option>

@@ -37,6 +37,30 @@
             });
     </#if>
     </script>
+    <style type="text/css">
+        #loading_div {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            margin-left: 200px;
+            height: 100%;
+            width: 100%;
+            background: rgba(255, 255, 255, .8) url('${ctx}/res/images/ajax-loader.gif') 40% 50% no-repeat;
+        }
+    </style>
+    <script type="text/javascript">
+        var index;
+        function beforeLoad() {
+            index = layer.load(0,{shade: [0.1,'#fff']});
+//            $("#loading_div").show();
+        }
+        function afterLoad() {
+            layer.close(index);
+//            $("#loading_div").hide();
+        }
+    </script>
     <#nested>
 </head>
 </#macro>

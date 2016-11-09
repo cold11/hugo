@@ -10,6 +10,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 
 import javax.imageio.ImageIO;
@@ -348,5 +351,17 @@ public class FileUtil {
         File file = new File(path);
         if(!file.exists())file.mkdirs();
     }
-	
+
+    public static String getContentType(String fileName) {
+        Path path = Paths.get(fileName);
+        String contentType = "image/jpeg";
+        try {
+            contentType = Files.probeContentType(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return contentType;
+    }
+
+
 }

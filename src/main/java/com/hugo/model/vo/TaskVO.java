@@ -1,11 +1,15 @@
 package com.hugo.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
 /**
  * Created by ohj on 2016/10/21.
  */
-public class TaskVO {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class TaskVO extends BaseVo {
+    private Long userId;
     private String taskId;
     private String bookname;
     private String sourceLanguage;
@@ -25,6 +29,19 @@ public class TaskVO {
     private Date transExpirationDate;//试译截止日期
     private String coverPath;
     private String docPath;//试读word文档
+    private Integer taskType;//任务类型
+    private Integer taskStatus;
+    private String transExpirationDateStr;//试译截止时间
+    public TaskVO() {
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getTaskId() {
         return taskId;
@@ -176,5 +193,29 @@ public class TaskVO {
 
     public void setDocPath(String docPath) {
         this.docPath = docPath;
+    }
+
+    public Integer getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(Integer taskType) {
+        this.taskType = taskType;
+    }
+
+    public Integer getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(Integer taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
+    public String getTransExpirationDateStr() {
+        return transExpirationDateStr;
+    }
+
+    public void setTransExpirationDateStr(String transExpirationDateStr) {
+        this.transExpirationDateStr = transExpirationDateStr;
     }
 }

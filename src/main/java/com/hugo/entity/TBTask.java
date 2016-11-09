@@ -31,7 +31,8 @@ public class TBTask extends BaseEntity {
     private String coverPath;
     private String docPath;//试读word文档
     private SysUser sysUser;//发布人
-    private Integer taskType;
+    private Integer taskType;//任务类型
+    private Integer taskStatus;//任务状态
 
     @Id
     @Column(name = "task_id",unique = true, length = 36, nullable = false)
@@ -212,5 +213,13 @@ public class TBTask extends BaseEntity {
 
     public void setTaskType(Integer taskType) {
         this.taskType = taskType;
+    }
+    @Column(name = "task_status")
+    public Integer getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(Integer taskStatus) {
+        this.taskStatus = taskStatus;
     }
 }

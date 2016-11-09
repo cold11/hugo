@@ -1,7 +1,9 @@
 package com.hugo.controller.task;
 
 import com.hugo.common.CommonConstants;
+import com.hugo.common.page.Pager;
 import com.hugo.common.util.Config;
+import com.hugo.common.util.DateUtil;
 import com.hugo.common.util.FileUtil;
 import com.hugo.controller.base.BaseController;
 import com.hugo.entity.SysUser;
@@ -24,11 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,7 @@ public class TaskController extends BaseController {
             task.setCreateTime(new Date());
             task.setSysUser(sysUser);
             task.setTaskType(CommonConstants.IS_TRANS_1);
+            task.setTaskStatus(CommonConstants.TASK_STATUS_0);
             taskService.save(task);
         } catch (Exception e) {
             success = false;
@@ -71,6 +73,32 @@ public class TaskController extends BaseController {
     @RequestMapping("/trans/todo")
     public String trans_todo(){
         return "/task/trans_todo";
+    }
+
+    @RequestMapping("/trans/todo_list")
+    public String todo_list(Model model,TaskVO taskVO){
+        Pager pager = new Pager();
+        Integer pageNo = taskVO.getPageNo();
+        Integer pageSize = taskVO.getPageSize();
+        pageNo = pageNo==null?1:pageNo;
+        if(pageSize!=null)pager.setPageSize(pageSize);
+        //taskVO.setUserId(ContextUtil.getUserId());
+        pager.setPageNo(pageNo);
+        pager.setCondition(taskVO);
+        taskService.getTaskPager(pager);
+        String nowDateStr = DateUtil.today("yyyy/MM/dd,HH:mm:ss");
+        model.addAttribute("nowDateStr",nowDateStr);
+        model.addAttribute("tasks",pager);
+        return "/task/trans_list";
+    }
+
+    @RequestMapping("/getImage")
+    public void getImage(HttpServletResponse response,String fileName){
+        String path = Config.getConfig("serverFile.path","");
+        File file = new File(path,fileName);
+        if(file.exists()&&file.isFile()){
+            showImage(response, file.getAbsolutePath());
+        }
     }
 
     @RequestMapping("/book")
@@ -87,6 +115,7 @@ public class TaskController extends BaseController {
             task.setCreateTime(new Date());
             task.setSysUser(sysUser);
             task.setTaskType(CommonConstants.IS_BOOK_2);
+            task.setTaskStatus(CommonConstants.TASK_STATUS_0);
             taskService.save(task);
         } catch (Exception e) {
             success = false;

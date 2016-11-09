@@ -1,6 +1,7 @@
 package com.hugo.entity;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Date;
 /**
  * Created by Administrator on 2016/10/3.
  */
+@MappedSuperclass
 public class BaseEntity implements Serializable {
     private Date createTime;
 
