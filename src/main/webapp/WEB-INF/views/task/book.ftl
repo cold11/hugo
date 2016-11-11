@@ -15,7 +15,7 @@
             <div class="col-sm-6 clearfix">
                 <ul class="c-page-breadcrumbs c-theme-nav c-fonts-regular">
                     <li>
-                        <a href="task-workflow.html">工作流程</a>
+                        <a href="${ctx}/task/task_workflow">工作流程</a>
                     </li>
                 </ul>
             </div>
@@ -150,5 +150,6 @@
             <input type="hidden" name="coverPath" id="coverPath" />
             <input type="hidden" name="docPath" id="docPath" />
         </form>
+    </div>
     </div>
 </@layout.body>

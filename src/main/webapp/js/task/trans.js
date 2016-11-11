@@ -111,7 +111,7 @@ $(function () {
 });
 
 function submitForm(form){
-    $.post(APP_BASE+"/task/trans_publish", form.serialize(), function(result) {
+    $.post(APP_BASE+"/task/trans/publish", form.serialize(), function(result) {
         if (result.success) {
             alert(result.msg);
             //location.href=APP_BASE+"/login";

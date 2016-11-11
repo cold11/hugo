@@ -122,7 +122,7 @@
                             <a href="edition-foreign.html" class="c-link">外版选题</a>
                         </li>
                         <li class="${class4}">
-                            <a href="appointment-modify.html" class="c-link">编辑约稿</a>
+                            <a href="${ctx}/task/editor/todo" class="c-link">编辑约稿</a>
                         </li>
                         <li class="${class5}">
                             <a href="${ctx}/task/trans/todo" class="c-link">翻译任务</a>

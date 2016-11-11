@@ -1,7 +1,7 @@
 <@layout.head title="待领取翻译任务">
 <script src="${ctx}/lib/pagination/jquery.twbsPagination.min.js"></script>
 <script type="text/javascript">
-    var task = {pageNo:1,taskStatus:0,taskType:1};
+    var task = {pageNo:1,taskStatus:0};
     function loadList() {
         beforeLoad();
         $.post("${ctx}/task/trans/todo_list", task)
@@ -17,22 +17,6 @@
     $(function () {
         loadList();
     });
-    var countdown=60;
-    function settime(obj) {
-        if (countdown == 0) {
-            obj.removeAttribute("disabled");
-            obj.value="免费获取验证码";
-            countdown = 60;
-            return;
-        } else {
-            obj.setAttribute("disabled", true);
-            obj.value="重新发送(" + countdown + ")";
-            countdown--;
-        }
-        setTimeout(function() {
-                    settime(obj) }
-                ,1000)
-    }
 </script>
 </@layout.head>
 <@layout.body class5="c-active">

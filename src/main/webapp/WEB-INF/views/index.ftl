@@ -27,7 +27,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="c-content-feature-1 text-center">
-                    <a href="release-appointment.html">
+                    <a href="${ctx}/task/editor">
                         <span class="c-content-line-icon c-theme c-icon-screen-chart"></span>
                         <span class="c-font-20">发布约稿</span>
                     </a>

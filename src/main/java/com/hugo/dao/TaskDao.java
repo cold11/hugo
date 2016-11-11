@@ -5,7 +5,9 @@ import com.google.common.collect.Maps;
 import com.hugo.common.page.Pager;
 import com.hugo.common.util.DateUtil;
 import com.hugo.dao.base.BaseDaoImpl;
+import com.hugo.entity.SysUser;
 import com.hugo.entity.TBTask;
+import com.hugo.model.vo.SysUserVO;
 import com.hugo.model.vo.TaskVO;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -26,6 +28,7 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
     public Pager getTaskPager(Pager<TaskVO> pager) {
         TaskVO taskVO = pager.getCondition();
         if(taskVO!=null){
+            SysUserVO sysUserVO = taskVO.getUser();
             Map<String,Object> paramMap = Maps.newHashMap();
             String hql = "from TBTask";
             if(taskVO.getTaskType()!=null){
@@ -36,8 +39,8 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
                 paramMap.put("taskStatus",taskVO.getTaskStatus());
                 hql+=" and taskStatus=:taskStatus";
             }
-            if(taskVO.getUserId()!=null){
-                paramMap.put("userId",taskVO.getUserId());
+            if(sysUserVO!=null&&sysUserVO.getUserId()!=null){
+                paramMap.put("userId",sysUserVO.getUserId());
                 hql+=" and sysUser.userId=:userId";
             }
             if(StringUtils.isNotBlank(taskVO.getSourceLanguage())){
@@ -68,7 +71,15 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 }
-                taskVO1.setUserId(task.getSysUser().getUserId());
+                SysUser sysUser = task.getSysUser();
+                SysUserVO userVO = new SysUserVO();
+                if(sysUser!=null){
+                    userVO.setUserId(sysUser.getUserId());
+                    userVO.setUsername(sysUser.getUsername());
+                    userVO.setReleaseAgency(sysUser.getReleaseAgency());
+                }
+                taskVO1.setUser(userVO);
+
                 if(taskVO1.getTransExpirationDate()!=null){
                     taskVO1.setTransExpirationDateStr(DateUtil.toString(taskVO1.getTransExpirationDate(),"yyyy/MM/dd,HH:mm:ss"));
                 }

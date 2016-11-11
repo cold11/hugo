@@ -9,7 +9,6 @@ import java.util.Date;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskVO extends BaseVo {
-    private Long userId;
     private String taskId;
     private String bookname;
     private String sourceLanguage;
@@ -32,15 +31,8 @@ public class TaskVO extends BaseVo {
     private Integer taskType;//任务类型
     private Integer taskStatus;
     private String transExpirationDateStr;//试译截止时间
+    private SysUserVO user;
     public TaskVO() {
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getTaskId() {
@@ -217,5 +209,13 @@ public class TaskVO extends BaseVo {
 
     public void setTransExpirationDateStr(String transExpirationDateStr) {
         this.transExpirationDateStr = transExpirationDateStr;
+    }
+
+    public SysUserVO getUser() {
+        return user;
+    }
+
+    public void setUser(SysUserVO user) {
+        this.user = user;
     }
 }

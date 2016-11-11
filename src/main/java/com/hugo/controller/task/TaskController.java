@@ -51,7 +51,7 @@ public class TaskController extends BaseController {
         return "/task/trans";
     }
 
-    @RequestMapping(value = "/trans_publish",produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/trans/publish",produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Map<String,Object> transPublish(Model model,HttpServletRequest request,TaskVO taskVO){
         boolean success = true;
         TBTask task = new TBTask();
@@ -83,6 +83,7 @@ public class TaskController extends BaseController {
         pageNo = pageNo==null?1:pageNo;
         if(pageSize!=null)pager.setPageSize(pageSize);
         //taskVO.setUserId(ContextUtil.getUserId());
+        taskVO.setTaskType(CommonConstants.IS_TRANS_1);
         pager.setPageNo(pageNo);
         pager.setCondition(taskVO);
         taskService.getTaskPager(pager);

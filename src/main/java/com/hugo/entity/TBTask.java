@@ -1,9 +1,12 @@
 package com.hugo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by ohj on 2016/10/20.
@@ -19,7 +22,7 @@ public class TBTask extends BaseEntity {
     private String publisher;//原出版商
     private String author;
     private String authorIntroduction;
-    private String bookIntroduction;
+    private String bookIntroduction;//简介/约稿需求
     private String bookFlIntroduction;//外文简介
     private String publishType;//出版类型
     private String eBookType;//电子书类型
@@ -33,6 +36,8 @@ public class TBTask extends BaseEntity {
     private SysUser sysUser;//发布人
     private Integer taskType;//任务类型
     private Integer taskStatus;//任务状态
+
+    private Set<TBUserTask> tbUserTasks = new HashSet<>();
 
     @Id
     @Column(name = "task_id",unique = true, length = 36, nullable = false)
@@ -221,5 +226,14 @@ public class TBTask extends BaseEntity {
 
     public void setTaskStatus(Integer taskStatus) {
         this.taskStatus = taskStatus;
+    }
+    @JsonIgnore
+    @OneToMany(mappedBy="tbTask",cascade=CascadeType.ALL,orphanRemoval = true)
+    public Set<TBUserTask> getTbUserTasks() {
+        return tbUserTasks;
+    }
+
+    public void setTbUserTasks(Set<TBUserTask> tbUserTasks) {
+        this.tbUserTasks = tbUserTasks;
     }
 }

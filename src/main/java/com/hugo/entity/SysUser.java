@@ -50,6 +50,8 @@ public class SysUser implements Serializable {
 	private Date loginDate;
     private Set<SysUserRole> sysUserRoles = new HashSet<>();
     private Set<TBTask> tbTasks = new HashSet<>();
+
+    private Set<TBUserTask> tbUserTasks = new HashSet<>();
 	// Constructors
 
 	/** default constructor */
@@ -319,5 +321,14 @@ public class SysUser implements Serializable {
 
     public void setTbTasks(Set<TBTask> tbTasks) {
         this.tbTasks = tbTasks;
+    }
+    @JsonIgnore
+    @OneToMany(mappedBy="sysUser",cascade=CascadeType.ALL,orphanRemoval = true)
+    public Set<TBUserTask> getTbUserTasks() {
+        return tbUserTasks;
+    }
+
+    public void setTbUserTasks(Set<TBUserTask> tbUserTasks) {
+        this.tbUserTasks = tbUserTasks;
     }
 }
