@@ -31,6 +31,10 @@
 		<property name="loginUrl" value="/login" /><!-- 登录地址 -->
 		<property name="filterChainDefinitions">
 			<value>
+                /task/trans/todo** = anon
+                /task/book** = authc,roles[ROLE_AUTHOR]
+                /task/editor/** = authc,roles[ROLE_EDITOR]
+                /task/trans/** = authc,roles[ROLE_TRANS]
                 /user/** = authc
                 /task/** = authc
                 /** = anon

@@ -1,10 +1,27 @@
-<@layout.head title="翻译 - 雨果翻译">
-<link rel="stylesheet" type="text/css" href="${ctx}/lib/Huploadify-html5/Huploadify.css" media="all">
-<script type="text/javascript" src="${ctx}/lib/Huploadify-html5/jquery.Huploadify.js"></script>
-<script type="text/javascript" src="${ctx}/lib/select2/select2.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${ctx}/lib/select2/select2-bootstrap.css" media="all">
-<link href="${ctx}/lib/select2/select2.css" rel="stylesheet">
-<script type="text/javascript" src="${ctx}/js/task/editor.js"></script>
+<@layout.head title="翻译 - 雨果翻译 - 试译">
+<script type="text/javascript">
+    function submit(type){
+        var trans = $('#trans').val();
+        if($.trim(trans)==''){
+            layer.alert("译文不能为空!")
+            return;
+        }
+        $.post("${ctx}/task/trans/taskTrialTranslation/saveTrialTranslation",{taskId:'${task.taskId}',transContent:trans,taskStatus:type}).done(function(data){
+            console.log(data);
+            if(data.success){
+                if(type==2){
+                    alert(data.msg);
+                    location.href = '${ctx}/task/trans/todo';
+                }else{
+                    layer.alert(data.msg);
+                }
+
+            }else layer.alert(data.msg);
+        }).fail(function(){
+            layer.alert('操作失败!');
+        });
+    }
+</script>
 </@layout.head>
 <@layout.body>
 <!-- breadcrumbs
@@ -53,18 +70,20 @@
                 <div class="col-sm-6">
                     <h3 class="c-margin-t-10 c-margin-b-10">原文</h3>
                     <div class="form-control translation-txt">
-                    ${task.tbTask.transContent}
+                    ${task.transContent}
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <h3 class="c-margin-t-10 c-margin-b-10">译文</h3>
-                    <textarea class="form-control" rows="20" name="trans" id="trans">${task.trans}</textarea>
+                    <textarea class="form-control" rows="20" name="trans" id="trans">${trans}</textarea>
                 </div>
             </div>
+            <#if !isSubmit>
             <div class="text-right c-margin-t-20">
-                <input type="submit" class="btn btn-primary btn-lg btn-lg-width" value="保 存" />
-                <input type="submit" class="btn btn-success btn-lg btn-lg-width" value="提 交" />
+                <input type="button" class="btn btn-primary btn-lg btn-lg-width" value="保 存" onclick="submit(1)" />
+                <input type="button" class="btn btn-success btn-lg btn-lg-width" value="提 交" onclick="submit(2)" />
             </div>
+            </#if>
         </div>
     </div>
 </div>

@@ -14,7 +14,22 @@
                     afterLoad();
                 });
     }
+    function filterList(lan){
+        task.sourceLanguage=lan;
+        loadList()
+    }
+    function removeActive(){
+        $('ul.c-dropdown-menu>li.c-active').each(function(i,e){
+            $(e).removeClass("c-active");
+        });
+    }
     $(function () {
+        $('ul.c-dropdown-menu>li>a').bind('click',function(){
+            removeActive();
+            var attr = $(this).attr('id');
+            $(this).parent().addClass("c-active");
+            filterList(attr);
+        });
         loadList();
     });
 </script>
@@ -70,7 +85,7 @@
                 </li>
                 <li>|</li>
                 <li>
-                    <a href="task-workflow.html">译员工作流程</a>
+                    <a href="${ctx}/task/task_workflow">译员工作流程</a>
                 </li>
             </ul>
         </div>
@@ -83,35 +98,35 @@
                                 语种<span class="c-arrow"></span>
                             </a>
                             <ul class="c-dropdown-menu">
-                                <li>
-                                    <a href="#">英语 <i class="fa fa-angle-right"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#">简体中文 <i class="fa fa-angle-right"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#">繁体中文 <i class="fa fa-angle-right"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#">德育 <i class="fa fa-angle-right"></i></a>
-                                </li>
                                 <li class="c-active">
-                                    <a href="#">日语 <i class="fa fa-angle-right"></i></a>
+                                    <a href="javascript:void(0)" id="1">英语 <i class="fa fa-angle-right"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#">法语 <i class="fa fa-angle-right"></i></a>
+                                    <a href="javascript:void(0)" id="2" >简体中文 <i class="fa fa-angle-right"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#">俄语 <i class="fa fa-angle-right"></i></a>
+                                    <a href="javascript:void(0)" id="3" >繁体中文 <i class="fa fa-angle-right"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#">韩语 <i class="fa fa-angle-right"></i></a>
+                                    <a href="javascript:void(0)" id="4" >德语 <i class="fa fa-angle-right"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#">西班牙语 <i class="fa fa-angle-right"></i></a>
+                                    <a href="javascript:void(0)" id="5" >日语 <i class="fa fa-angle-right"></i></a>
                                 </li>
                                 <li>
-                                    <a href="#">其他 <i class="fa fa-angle-right"></i></a>
+                                    <a href="javascript:void(0)" id="6" >法语 <i class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" id="7" >俄语 <i class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" id="8" >韩语 <i class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" id="9" >西班牙语 <i class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" id="10" >其他 <i class="fa fa-angle-right"></i></a>
                                 </li>
                             </ul>
                         </li>

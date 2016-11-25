@@ -57,7 +57,7 @@ public class CommonConstants {
 
     public static final Integer TASK_STATUS_0= 0;//初始状态
     public static final Integer TASK_STATUS_1= 1;//已领取
-    public static final Integer TASK_STATUS = 2;//已完成
+    public static final Integer TASK_STATUS_2 = 2;//已完成
     /**
      * 默认cookie key
      */

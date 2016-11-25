@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by ohj on 2016/11/11.
  */
 @Entity
-@Table(name = "tb_task")
+@Table(name = "tb_user_task")
 public class TBUserTask extends BaseEntity {
     private String userTaskId;
     private SysUser sysUser;
