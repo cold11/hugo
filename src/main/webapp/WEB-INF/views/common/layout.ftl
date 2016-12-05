@@ -87,7 +87,7 @@
         <div class="container">
             <div class="login-box clearfix">
                 <@shiro.user>
-                    <a href="javascript:void(0)"><@shiro.principal></@shiro.principal></a>
+                    <a href="${ctx}/user/home"><@shiro.principal></@shiro.principal></a>
                     <span>|</span>
                     <a href="${ctx}/logout" >退出</a>
                 </@shiro.user>

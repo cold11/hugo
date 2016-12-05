@@ -21,7 +21,7 @@ public class UserTaskService extends BaseService implements IUserTaskService {
     }
 
     @Override
-    public Pager getUserTaskPager(Pager<TaskVO> pager) {
+    public Pager getUserTaskPager(Pager pager) {
         return userTaskDao.getUserTaskPager(pager);
     }
 }

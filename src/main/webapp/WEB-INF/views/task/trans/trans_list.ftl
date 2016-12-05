@@ -40,30 +40,29 @@
         }, 1000); //每个1秒执行一次
     });
 </script>
-</#if>
 <div class="waterfall waterfall-4">
     <input type="hidden" id="nowTime" value="${.now?string("yyyy/MM/dd,HH:mm:ss")}" />
     <ul class="clearfix">
-<#list tasks.result as t>
-        <li>
-            <div class="thumbnail">
-                <a href="#">
-                    <img src="${ctx}/task/getImage?fileName=${t.coverPath}"/>
-                    <div class="desc">
-                        <p>${t.bookname} - ${t.publisher}</p>
-                        <p>${t.transContent}</p>
+        <#list tasks.result as t>
+            <li>
+                <div class="thumbnail">
+                    <a href="#">
+                        <img src="${ctx}/task/getImage?fileName=${t.coverPath}"/>
+                        <div class="desc">
+                            <p>${t.bookname} - ${t.publisher}</p>
+                            <p>${t.transContent}</p>
+                        </div>
+                    </a>
+                    <div class="caption">
+                        <p>书名：<span>${t.bookname}</span></p>
+                        <p>作者：<span>${t.author}</span></p>
+                        <p>需要方向：<span>direction</span></p>
+                        <p>距离截止时间：<b class="c-font-green-4 endtime" value="${t.transExpirationDateStr}">Loading...</b></p>
+                        <a class="btn btn-sm btn-primary c-margin-t-5" href="${ctx}/task/trans/trialTranslation/${t.taskId}">申请试译</a>
                     </div>
-                </a>
-                <div class="caption">
-                    <p>书名：<span>${t.bookname}</span></p>
-                    <p>作者：<span>${t.author}</span></p>
-                    <p>需要方向：<span>direction</span></p>
-                    <p>距离截止时间：<b class="c-font-green-4 endtime" value="${t.transExpirationDateStr}">Loading...</b></p>
-                    <a class="btn btn-sm btn-primary c-margin-t-5" href="${ctx}/task/trans/trialTranslation/${t.taskId}">申请试译</a>
                 </div>
-            </div>
-        </li>
-</#list>
+            </li>
+        </#list>
     </ul>
 </div>
 <!-- pages -->
@@ -71,3 +70,7 @@
     <ul class="pagination" id="pagination">
     </ul>
 </div>
+<#else>
+<div class="caption" style="height: 425px;">暂无记录</div>
+</#if>
+

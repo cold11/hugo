@@ -35,6 +35,12 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
                 paramMap.put("taskType",taskVO.getTaskType());
                 hql+=" and taskType=:taskType";
             }
+            if(taskVO.getTransExpirationDate()!=null){
+                hql+=" and transExpirationDate>=now()";
+            }
+            if(StringUtils.isNotBlank(pager.getToUrl())){
+                hql+=" and transExpirationDate<=now()";
+            }
             if(taskVO.getTaskStatus()!=null){
                 paramMap.put("taskStatus",taskVO.getTaskStatus());
                 hql+=" and taskStatus=:taskStatus";

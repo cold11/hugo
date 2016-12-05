@@ -2,7 +2,6 @@ package com.hugo.controller.task.trans;
 
 import com.hugo.common.CommonConstants;
 import com.hugo.common.page.Pager;
-import com.hugo.common.util.DateUtil;
 import com.hugo.controller.base.BaseController;
 import com.hugo.entity.SysUser;
 import com.hugo.entity.TBTask;
@@ -12,7 +11,6 @@ import com.hugo.model.vo.TaskVO;
 import com.hugo.service.ITaskService;
 import com.hugo.service.IUserTaskService;
 import com.hugo.util.ContextUtil;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.Map;
 
@@ -118,7 +113,7 @@ public class TransController extends BaseController {
 
     @RequestMapping("/myTransTask")
     public String myTransTask(Model model){
-        return "/task/mytrans_task";
+        return "task/trans/mytrans_task";
     }
 
     @RequestMapping("/myTransTaskList")
@@ -131,13 +126,11 @@ public class TransController extends BaseController {
         SysUserVO userVO = new SysUserVO();
         userVO.setUserId(ContextUtil.getUserId());
         taskVO.setUser(userVO);
-
         pager.setPageNo(pageNo);
         pager.setCondition(taskVO);
-        taskService.getTaskPager(pager);
-        String nowDateStr = DateUtil.today("yyyy/MM/dd,HH:mm:ss");
-        model.addAttribute("nowDateStr",nowDateStr);
+        userTaskService.getUserTaskPager(pager);
+        //taskService.getTaskPager(pager);
         model.addAttribute("tasks",pager);
-        return "/task/trans_list";
+        return "task/trans/mytrans_list";
     }
 }

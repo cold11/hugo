@@ -48,7 +48,7 @@ public class TaskController extends BaseController {
     }
     @RequestMapping("/trans")
     public String trans(){
-        return "/task/trans";
+        return "task/trans/trans";
     }
 
     @RequestMapping(value = "/trans/publish",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,7 +72,7 @@ public class TaskController extends BaseController {
 
     @RequestMapping("/trans/todo")
     public String trans_todo(){
-        return "/task/trans_todo";
+        return "task/trans/trans_todo";
     }
 
     @RequestMapping("/trans/todo_list")
@@ -81,6 +81,8 @@ public class TaskController extends BaseController {
         Integer pageNo = taskVO.getPageNo();
         Integer pageSize = taskVO.getPageSize();
         pageNo = pageNo==null?1:pageNo;
+        Date now = new Date();
+        taskVO.setTransExpirationDate(now);
         if(pageSize!=null)pager.setPageSize(pageSize);
         //taskVO.setUserId(ContextUtil.getUserId());
         taskVO.setTaskType(CommonConstants.IS_TRANS_1);
@@ -90,9 +92,31 @@ public class TaskController extends BaseController {
         String nowDateStr = DateUtil.today("yyyy/MM/dd,HH:mm:ss");
         model.addAttribute("nowDateStr",nowDateStr);
         model.addAttribute("tasks",pager);
-        return "/task/trans_list";
+        return "task/trans/trans_list";
     }
 
+    @RequestMapping("/trans/history")
+    public String trans_history(){
+        return "task/trans/trans_history";
+    }
+    @RequestMapping("/trans/history_list")
+    public String trans_history_list(Model model,TaskVO taskVO){
+        Pager pager = new Pager();
+        Integer pageNo = taskVO.getPageNo();
+        Integer pageSize = taskVO.getPageSize();
+        pageNo = pageNo==null?1:pageNo;
+        if(pageSize!=null)pager.setPageSize(pageSize);
+        //taskVO.setUserId(ContextUtil.getUserId());
+        taskVO.setTaskType(CommonConstants.IS_TRANS_1);
+        pager.setPageNo(pageNo);
+        pager.setCondition(taskVO);
+        pager.setToUrl("history");
+        taskService.getTaskPager(pager);
+        String nowDateStr = DateUtil.today("yyyy/MM/dd,HH:mm:ss");
+        model.addAttribute("nowDateStr",nowDateStr);
+        model.addAttribute("tasks",pager);
+        return "task/trans/trans_history_list";
+    }
     @RequestMapping("/getImage")
     public void getImage(HttpServletResponse response,String fileName){
         String path = Config.getConfig("serverFile.path","");
