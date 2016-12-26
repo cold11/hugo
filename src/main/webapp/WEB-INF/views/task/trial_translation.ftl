@@ -6,7 +6,7 @@
             layer.alert("译文不能为空!")
             return;
         }
-        $.post("${ctx}/task/trans/taskTrialTranslation/saveTrialTranslation",{taskId:'${task.taskId}',transContent:trans,taskStatus:type}).done(function(data){
+        $.post("${ctx}/task/mytrans/taskTrialTranslation/saveTrialTranslation",{taskId:'${task.taskId}',transContent:trans,taskStatus:type}).done(function(data){
             console.log(data);
             if(data.success){
                 if(type==2){

@@ -1,5 +1,6 @@
 package com.hugo.service;
 
+import com.hugo.common.page.Pager;
 import com.hugo.dao.ISysUserDao;
 import com.hugo.entity.SysUser;
 import com.hugo.service.base.BaseService;
@@ -47,6 +48,11 @@ public class SysUserService extends BaseService implements ISysUserService {
     }
 
     @Override
+    public boolean checkUserRole(long userId, long roleId) {
+        return sysUserDao.checkUserRole(userId,roleId);
+    }
+
+    @Override
     public SysUser validateUsername(String username) {
         return sysUserDao.validateUsername(username);
     }
@@ -59,5 +65,10 @@ public class SysUserService extends BaseService implements ISysUserService {
     @Override
     public SysUser validatePhone(String phone) {
         return sysUserDao.validatePhone(phone);
+    }
+
+    @Override
+    public Pager getUserPager(Pager pager) {
+        return sysUserDao.getUserPager(pager);
     }
 }

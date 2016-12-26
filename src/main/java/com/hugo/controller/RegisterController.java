@@ -1,6 +1,7 @@
 package com.hugo.controller;
 
 import com.google.common.collect.Maps;
+import com.hugo.common.util.Config;
 import com.hugo.controller.base.BaseController;
 import com.hugo.entity.SysUser;
 import com.hugo.model.vo.SysUserVO;
@@ -75,19 +76,24 @@ public class RegisterController extends BaseController {
         String message = "注册成功";
         SysUser sysUser = new SysUser();
         try {
+            String path = Config.getConfig("serverFile.path", "");
             BeanUtils.copyProperties(sysUser,userVO);
             sysUser.setLoginIp(ContextUtil.getClientIP(request));
             Iterator<String> it = request.getFileNames();
             while (it.hasNext()){
                 MultipartFile file = request.getFile(it.next());
                 String fileName = file.getOriginalFilename();
-                String path = FileUtil.getFilePath(request, sysUser.getPhone());
+                //String path = FileUtil.getFilePath(request, sysUser.getPhone());
+                String storePath = File.separator+sysUser.getUsername()+File.separator+"upload"+FileUtil.getDatePath();
                 String storeName = FileUtil.getRandName(fileName);
-                String saveFile = path+File.separator+storeName;
+                String filePath = storePath+storeName;
+                String saveFile = path+filePath;
+                FileUtil.mkDirs(path+storePath);
+                //String saveFile = path+File.separator+storeName;
                 File file1 = new File(saveFile);
                 try {
                     FileUtils.copyInputStreamToFile(file.getInputStream(), file1);
-                    sysUser.setFilePath(saveFile);
+                    sysUser.setFilePath(filePath);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -23,21 +23,34 @@
     <bean id="accountAuthorizationRealm" class="com.hugo.common.shiro.AccountAuthorizationRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
+    <!--自定义的Roles Filter-->
+    <bean id="anyRoles" class="com.hugo.common.freemarker.shiro.CustomRolesAuthorizationFilter" />
 
-
-	 <!-- Shiro Filter 对应web.xml的配置-->
+    <!-- Shiro Filter 对应web.xml的配置-->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" /><!-- 登录地址 -->
-		<property name="filterChainDefinitions">
+        <property name="filters">
+            <map>
+                <entry key="anyRoles" value-ref="anyRoles"/>
+            </map>
+        </property>
+        <property name="filterChainDefinitions">
 			<value>
                 /task/getImage = anon
                 /task/trans/todo** = anon
                 /task/trans/history** = anon
                 /task/editor/todo** = anon
-                /task/book** = authc,roles[ROLE_AUTHOR]
                 /task/editor/** = authc,roles[ROLE_EDITOR]
-                /task/trans/** = authc,roles[ROLE_TRANS]
+                /task/book** = authc,roles[ROLE_AUTHOR]
+                /author/** = authc,roles[ROLE_AUTHOR]
+                /task/trans/** = authc,anyRoles[ROLE_EDITOR,ROLE_AUTHOR]
+                /task/mytrans/** = authc,roles[ROLE_TRANS]
+                /user/mytrans/** = authc,roles[ROLE_TRANS]
+                /user/mytransInvite** = authc,roles[ROLE_TRANS]
+                /user/mytransInvite/** = authc,roles[ROLE_TRANS]
+                /user/transteam** = anon
+                /user/transteam**/* = anon
                 /user/** = authc
                 /task/** = authc
                 /** = anon

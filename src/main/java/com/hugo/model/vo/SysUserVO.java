@@ -12,11 +12,13 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SysUserVO extends BaseUserVO {
     private String password;
+    private List<?> inputRoles;
     private Integer translatorType;//译员类型
     private Integer releaseRole;//发布人角色
     private String postscript;//补充说明
     private String releaseAgency;//所在出版机构
     private String releaseCompany;//公司名称
+    private String companyDesc;
     private String personalIntro;//个人简介
     private String language;//擅长语种
     private String translationType;//擅长翻译类型
@@ -28,6 +30,14 @@ public class SysUserVO extends BaseUserVO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<?> getInputRoles() {
+        return inputRoles;
+    }
+
+    public void setInputRoles(List<?> inputRoles) {
+        this.inputRoles = inputRoles;
     }
 
     public Integer getTranslatorType() {
@@ -68,6 +78,14 @@ public class SysUserVO extends BaseUserVO {
 
     public void setReleaseCompany(String releaseCompany) {
         this.releaseCompany = releaseCompany;
+    }
+
+    public String getCompanyDesc() {
+        return companyDesc;
+    }
+
+    public void setCompanyDesc(String companyDesc) {
+        this.companyDesc = companyDesc;
     }
 
     public String getPersonalIntro() {

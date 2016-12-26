@@ -3,11 +3,14 @@ package com.hugo.dao;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.hugo.common.CommonConstants;
+import com.hugo.common.page.Pager;
 import com.hugo.dao.base.BaseDaoImpl;
 import com.hugo.entity.SysRole;
 import com.hugo.entity.SysUser;
 import com.hugo.entity.SysUserRole;
+import com.hugo.model.vo.SysUserVO;
 import com.hugo.util.ContextUtil;
+import com.hugo.util.IdGenerator;
 import com.hugo.util.MD5Util;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,6 +40,7 @@ public class SysUserDao extends BaseDaoImpl implements ISysUserDao {
             sysUser.setModifyId(ContextUtil.getUserId());//修改人
             sysUser.setModifyTime(new Date());//修改时间
             sysUser.setLoginDate(new Date());
+            sysUser.setUserNo(IdGenerator.randomString(25));
             Set<SysUserRole> roles = sysUser.getSysUserRoles();
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setSysUser(sysUser);
@@ -124,6 +128,15 @@ public class SysUserDao extends BaseDaoImpl implements ISysUserDao {
     }
 
     @Override
+    public boolean checkUserRole(long userId, long roleId) {
+        String hql = " from SysUser a where a.userId=? and exists(select 'X' from SysUserRole b where a.userId=b.sysUser.userId and b.sysRole.roleId = ?)";
+        List<SysUser> list = this.getListByHql(hql, Arrays.asList(userId,roleId));
+        if(list.isEmpty())
+            return false;
+        else return true;
+    }
+
+    @Override
     public SysUser validateUsername(String username) {
         String hql = "from SysUser where username=:username";
         Map<String,Object> paramMap = Maps.newHashMap();
@@ -145,5 +158,41 @@ public class SysUserDao extends BaseDaoImpl implements ISysUserDao {
         Map<String,Object> paramMap = Maps.newHashMap();
         paramMap.put("phone", phone);
         return (SysUser)getUniqueResult(hql,paramMap);
+    }
+
+    @Override
+    public Pager getUserPager(Pager pager) {
+        SysUserVO sysUserVO = (SysUserVO) pager.getCondition();
+        if(sysUserVO!=null){
+            Map<String,Object> paramMap = Maps.newHashMap();
+            String hql = "from SysUser a";
+            List<?> inputRoles = sysUserVO.getInputRoles();
+            if(inputRoles!=null&&!inputRoles.isEmpty()){
+                hql+=" and exists(select 'X' from SysUserRole b where a.userId=b.sysUser.userId and b.sysRole.roleId in :roleIds)";
+                paramMap.put("roleIds",inputRoles);
+            }
+            if(sysUserVO.getTranslatorType()!=null){
+                hql+=" and a.translatorType=:translatorType";
+                paramMap.put("translatorType",sysUserVO.getTranslatorType());
+            }
+            if(!paramMap.isEmpty()){
+                hql = hql.replaceFirst("and","where");
+            }
+            String hqlCount = "select count(1) "+hql;
+            if (StringUtils.isNotBlank(sysUserVO.getSort())) {
+                hql += " order by a." + sysUserVO.getSort();
+                if (StringUtils.isNotBlank(sysUserVO.getOrder())) {
+                    hql += " " + sysUserVO.getOrder();
+                }
+            } else {
+                hql += " order by a.createTime desc";
+            }
+            int total = getCountByHqlParamMap(hqlCount, paramMap);
+            List<SysUser> list = getPageListByParamMap(hql,paramMap,pager.getPageNo(),pager.getPageSize());
+            pager.setResult(list);
+            pager.setTotalRows(total);
+            return pager;
+        }
+        return null;
     }
 }

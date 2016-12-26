@@ -36,6 +36,13 @@ $(function () {
                     }
                 }
             },
+            classId:{
+                validators: {
+                    notEmpty: {
+                        message: '请选择分类!'
+                    }
+                }
+            },
             copyrightType: {
                 validators: {
                     notEmpty: {
@@ -57,35 +64,35 @@ $(function () {
                     }
                 }
             },
-            author:{
-                validators: {
-                    notEmpty: {
-                        message: '作者不能为空!'
-                    }
-
-                }
-            },
-            authorIntroduction:{
-                validators: {
-                    notEmpty: {
-                        message: '作者简介不能为空!'
-                    }
-                }
-            },
+            //author:{
+            //    validators: {
+            //        notEmpty: {
+            //            message: '作者不能为空!'
+            //        }
+            //
+            //    }
+            //},
+            //authorIntroduction:{
+            //    validators: {
+            //        notEmpty: {
+            //            message: '作者简介不能为空!'
+            //        }
+            //    }
+            //},
             bookIntroduction:{
                 validators: {
                     notEmpty: {
                         message: '中文简介不能为空!'
                     }
                 }
-            },
-            bookFlIntroduction:{
-                validators: {
-                    notEmpty: {
-                        message: '外文简介不能为空!'
-                    }
-                }
             }
+            //bookFlIntroduction:{
+            //    validators: {
+            //        notEmpty: {
+            //            message: '外文简介不能为空!'
+            //        }
+            //    }
+            //}
         }
     });
     upload1 = $('#upload1').Huploadify({

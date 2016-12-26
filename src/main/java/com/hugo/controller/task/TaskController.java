@@ -7,12 +7,15 @@ import com.hugo.common.util.DateUtil;
 import com.hugo.common.util.FileUtil;
 import com.hugo.controller.base.BaseController;
 import com.hugo.entity.SysUser;
+import com.hugo.entity.TBClassification;
 import com.hugo.entity.TBTask;
 import com.hugo.model.vo.TaskVO;
+import com.hugo.service.IClassificationService;
 import com.hugo.service.ITaskService;
 import com.hugo.util.ContextUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -42,10 +45,17 @@ import java.util.Map;
 public class TaskController extends BaseController {
     @Autowired
     private ITaskService taskService;
+    @Autowired
+    private IClassificationService classificationService;
     @RequestMapping("/task_workflow")
     public String taskWorkFlow(){
         return "/task/task_workflow";
     }
+
+    /**
+     * 发布翻译任务
+     * @return
+     */
     @RequestMapping("/trans")
     public String trans(){
         return "task/trans/trans";
@@ -127,7 +137,9 @@ public class TaskController extends BaseController {
     }
 
     @RequestMapping("/book")
-    public String book(){
+    public String book(Model model){
+        List<TBClassification> list = classificationService.getList();
+        model.addAttribute("cList",list);
         return "/task/book";
     }
     @RequestMapping(value = "/book_publish",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -137,6 +149,10 @@ public class TaskController extends BaseController {
         try {
             SysUser sysUser = taskService.findEntityById(SysUser.class,ContextUtil.getUserId());
             BeanUtils.copyProperties(task,taskVO);
+            if(StringUtils.isNotBlank(taskVO.getClassId())){
+                TBClassification tbClassification =classificationService.findEntityById(TBClassification.class,taskVO.getClassId());
+                task.setClassification(tbClassification);
+            }
             task.setCreateTime(new Date());
             task.setSysUser(sysUser);
             task.setTaskType(CommonConstants.IS_BOOK_2);
@@ -166,7 +182,7 @@ public class TaskController extends BaseController {
             String storePath = File.separator+username+FileUtil.getDatePath();
             filePath = storePath+storeName;
             String savePath = path+filePath;
-            FileUtil.mkDirs(storePath);
+            FileUtil.mkDirs(path+storePath);
             File saveFile = new File(savePath);
             FileUtils.copyInputStreamToFile(file.getInputStream(), saveFile);
 

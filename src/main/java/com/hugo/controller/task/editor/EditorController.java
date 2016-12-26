@@ -6,8 +6,11 @@ import com.hugo.common.util.DateUtil;
 import com.hugo.controller.base.BaseController;
 import com.hugo.entity.SysUser;
 import com.hugo.entity.TBTask;
+import com.hugo.entity.TBTransMessage;
 import com.hugo.model.vo.TaskVO;
+import com.hugo.model.vo.TransMessageVO;
 import com.hugo.service.ITaskService;
+import com.hugo.service.ITransMessageService;
 import com.hugo.util.ContextUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,8 @@ import java.util.Map;
 public class EditorController extends BaseController {
     @Autowired
     private ITaskService taskService;
+    @Autowired
+    private ITransMessageService transMessageService;
     @RequestMapping("")
     public String editor(){
         return "/task/editor";
@@ -71,4 +76,25 @@ public class EditorController extends BaseController {
         model.addAttribute("tasks",pager);
         return "/task/edit_list";
     }
+
+    @RequestMapping(value = "/invitation",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String,Object> invitation(TransMessageVO transMessageVO){
+        boolean success = true;
+        String message = "邀请成功";
+        Long inviteId = ContextUtil.getUserId();
+        Long userId = transMessageVO.getUserId();
+        try {
+            transMessageVO.setInviteId(inviteId);
+             transMessageService.save(transMessageVO);
+            //transMessageService.findTransMessage(userId,inviteId);
+
+        }catch (Exception e){
+            log.error("邀请试译出错["+userId+","+inviteId+"]",e);
+            success = false;
+            message = "出现错误";
+        }
+        return jsonResult(success,message);
+    }
+
 }

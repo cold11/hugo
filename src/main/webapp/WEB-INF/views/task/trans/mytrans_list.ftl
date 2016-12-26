@@ -32,7 +32,14 @@
                     <div class="caption">
                         <p>书名：<span>${t.tbTask.bookname}</span></p>
                         <p>作者：<span>${t.tbTask.author}</span></p>
-                        <a class="btn btn-sm btn-primary c-margin-t-5" href="${ctx}/task/trans/trialTranslation/${t.tbTask.taskId}">继续翻译</a>
+                        <#if t.tbTask.taskType==4>
+                            <p>属性：<span>用户添加</span></p>
+                            <#else>
+                                <a class="btn btn-sm btn-primary c-margin-t-5" href="${ctx}/task/mytrans/trialTranslation/${t.tbTask.taskId}">
+                                    <#if t.status==2>查看<#else>继续</#if>翻译
+                                </a>
+                        </#if>
+
                     </div>
                 </div>
             </li>

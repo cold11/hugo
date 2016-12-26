@@ -1,5 +1,6 @@
 package com.hugo.service;
 
+import com.hugo.common.page.Pager;
 import com.hugo.entity.SysUser;
 import com.hugo.service.base.IBaseService;
 
@@ -41,10 +42,17 @@ public interface ISysUserService extends IBaseService {
     void saveNewPassword(String username, String password);
 
     Set<String> findRoles(String username);
-
+    /**
+     * 检查用户角色
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    boolean checkUserRole(long userId,long roleId);
     SysUser validateUsername(String username);
 
     SysUser validateEmail(String email);
 
     SysUser validatePhone(String phone);
+    Pager getUserPager(Pager pager);
 }

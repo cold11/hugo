@@ -1,5 +1,6 @@
 package com.hugo.dao;
 
+import com.hugo.common.page.Pager;
 import com.hugo.dao.base.IBaseDao;
 import com.hugo.entity.SysUser;
 
@@ -42,9 +43,19 @@ public interface ISysUserDao extends IBaseDao{
 
     Set<String> findRoles(String username);
 
+    /**
+     * 检查用户角色
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    boolean checkUserRole(long userId,long roleId);
+
     SysUser validateUsername(String username);
 
     SysUser validateEmail(String email);
 
     SysUser validatePhone(String phone);
+
+    Pager getUserPager(Pager pager);
 }

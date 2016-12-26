@@ -27,6 +27,19 @@ public class UserTaskDao extends BaseDaoImpl implements IUserTaskDao {
     }
 
     @Override
+    public List<TBUserTask> getUstasks(String taskId,Integer status) {
+        String hql = "from TBUserTask where tbTask.taskId=:taskId";
+        Map<String,Object> paramMap = Maps.newHashMap();
+        if(status!=null){
+            hql+=" and status=:status";
+            paramMap.put("status",status);
+        }
+        paramMap.put("taskId",taskId);
+        List<TBUserTask> list = getListByHqlParamMap(hql,paramMap);
+        return list;
+    }
+
+    @Override
     public Pager getUserTaskPager(Pager pager) {
         TaskVO taskVO = (TaskVO)pager.getCondition();
         if(taskVO!=null){
@@ -39,6 +52,10 @@ public class UserTaskDao extends BaseDaoImpl implements IUserTaskDao {
             if(taskVO.getTaskStatus()!=null){
                 hql+=" and status=:status";
                 paramMap.put("status",taskVO.getTaskStatus());
+            }
+            if(taskVO.getTaskType()!=null){
+                hql+=" and userTaskType=:userTaskType";
+                paramMap.put("userTaskType",taskVO.getTaskType());
             }
             if(!paramMap.isEmpty()){
                 hql = hql.replaceFirst("and","where");

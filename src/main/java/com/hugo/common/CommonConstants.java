@@ -47,6 +47,17 @@ public class CommonConstants {
     public static final String ROLE_AUTHOR = "ROLE_AUTHOR";//作者/译者
     public static final String ROLE_ANGET = "ROLE_ANGET";//版权代理
 
+    public static final  long ROLE_TRANS_ID = 4L;
+    public static final  long ROLE_EDITOR_ID = 1L;
+    public static final  long ROLE_AUTHOR_ID = 2L;
+    public static final  long ROLE_ANGET_ID = 3L;
+
+    /**
+     * 翻译员/翻译团队 译员类型
+     */
+    public static final Integer PERSONAL= 1;//个人
+    public static final Integer TEAM = 2;//团队
+    public static final Integer COMPANY = 3;//公司
     /**
      * taskType
      */
@@ -54,6 +65,11 @@ public class CommonConstants {
     public static final Integer IS_TRANS_1= 1;//翻译任务
     public static final Integer IS_BOOK_2 = 2;//图书任务
     public static final Integer IS_EDIT_3 = 3;//编辑约稿
+    public static final Integer IS_USER_ADD_4 = 4;//用户添加
+
+    public static final Integer COPYRIGHTTYPE_1 = 1;//中文版版原著国内出版
+    public static final Integer COPYRIGHTTYPE_2 = 2;//外版译著引进出版
+    public static final Integer COPYRIGHTTYPE_3 = 3;//版权输出
 
     public static final Integer TASK_STATUS_0= 0;//初始状态
     public static final Integer TASK_STATUS_1= 1;//已领取

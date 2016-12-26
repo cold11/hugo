@@ -32,16 +32,27 @@ public class SysUser implements Serializable {
 	private String postscript;//补充说明
 	private String releaseAgency;//所在出版机构
 	private String releaseCompany;//公司名称
+    private String companyDesc;
 	private String personalIntro;//个人简介
 	private String language;//擅长语种
 	private String translationType;//擅长翻译类型
 	private Integer translatorCount;//译员数
 	private String filePath;
+    private String userNo;//编号
     private Long createId;
     private Long modifyId;
 	private Date createTime;
 	private Date modifyTime;
-	private Integer isDisable;
+
+    public String getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
+    }
+
+    private Integer isDisable;
 	private Date disableDate;
 	private Integer isDelete;
 	
@@ -176,7 +187,16 @@ public class SysUser implements Serializable {
 	public void setReleaseCompany(String releaseCompany) {
 		this.releaseCompany = releaseCompany;
 	}
-	@Column(name = "personal_intro",columnDefinition = "text")
+    @Column(name = "company_desc",columnDefinition = "text")
+    public String getCompanyDesc() {
+        return companyDesc;
+    }
+
+    public void setCompanyDesc(String companyDesc) {
+        this.companyDesc = companyDesc;
+    }
+
+    @Column(name = "personal_intro",columnDefinition = "text")
 	public String getPersonalIntro() {
 		return personalIntro;
 	}

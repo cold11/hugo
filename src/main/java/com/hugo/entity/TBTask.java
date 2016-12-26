@@ -36,13 +36,14 @@ public class TBTask extends BaseEntity {
     private SysUser sysUser;//发布人
     private Integer taskType;//任务类型
     private Integer taskStatus;//任务状态
+    private TBClassification classification;//分类
 
     private Set<TBUserTask> tbUserTasks = new HashSet<>();
 
     @Id
     @Column(name = "task_id",unique = true, length = 36, nullable = false)
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
     public String getTaskId() {
         return taskId;
     }
@@ -227,6 +228,16 @@ public class TBTask extends BaseEntity {
     public void setTaskStatus(Integer taskStatus) {
         this.taskStatus = taskStatus;
     }
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "class_id", unique = true,nullable = true)
+    public TBClassification getClassification() {
+        return classification;
+    }
+
+    public void setClassification(TBClassification classification) {
+        this.classification = classification;
+    }
+
     @JsonIgnore
     @OneToMany(mappedBy="tbTask",cascade=CascadeType.ALL,orphanRemoval = true)
     public Set<TBUserTask> getTbUserTasks() {

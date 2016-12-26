@@ -4,9 +4,20 @@
     var task = {pageNo:1,taskStatus:1};
     function loadList() {
         beforeLoad();
-        $.post("${ctx}/task/trans/myTransTaskList", task)
+        $.post("${ctx}/task/mytrans/myTransTaskList", task)
                 .done(function (data) {
-                    console.log(data);
+                    $("#data_div").empty().html(data);
+                    afterLoad();
+                })
+                .fail(function () {
+                    $("#data_div").empty().html("<span style='color: red;'>加载失败</span>");
+                    afterLoad();
+                });
+    }
+    function loadList2(url) {
+        beforeLoad();
+        $.post(url, task)
+                .done(function (data) {
                     $("#data_div").empty().html(data);
                     afterLoad();
                 })
@@ -16,8 +27,16 @@
                 });
     }
     function filterList(status){
-        task.taskStatus=status;
-        loadList()
+        if(status==4){
+            var url = '${ctx}/task/mytrans/addTransWork';
+            loadList2(url);
+        }else if(status==3){
+            var url = '${ctx}/user/mytransInviteList';
+            loadList2(url);
+        }else {
+            task.taskStatus = status;
+            loadList();
+        }
     }
     function removeActive(){
         $('ul.c-dropdown-menu>li.c-active').each(function(i,e){
@@ -86,6 +105,12 @@
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);" id="2">已完成翻译 <i class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" id="3">我收到的邀请 <i class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" id="4">添加作品 <i class="fa fa-angle-right"></i></a>
                                 </li>
                             </ul>
                         </li>

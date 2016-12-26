@@ -49,6 +49,14 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
                 paramMap.put("userId",sysUserVO.getUserId());
                 hql+=" and sysUser.userId=:userId";
             }
+            if(StringUtils.isNotBlank(taskVO.getCopyrightType())){
+                paramMap.put("copyrightType",taskVO.getCopyrightType());
+                hql+=" and copyrightType=:copyrightType";
+            }
+            if(StringUtils.isNotBlank(taskVO.getClassId())){
+                paramMap.put("classid",taskVO.getClassId());
+                hql+=" and classification.id=:classid";
+            }
             if(StringUtils.isNotBlank(taskVO.getSourceLanguage())){
                 paramMap.put("sourceLanguage",taskVO.getSourceLanguage());
                 hql+=" and sourceLanguage=:sourceLanguage";
@@ -83,6 +91,9 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
                     userVO.setUserId(sysUser.getUserId());
                     userVO.setUsername(sysUser.getUsername());
                     userVO.setReleaseAgency(sysUser.getReleaseAgency());
+                    userVO.setName(sysUser.getName());
+                    userVO.setPhone(sysUser.getPhone());
+                    userVO.setEmail(sysUser.getEmail());
                 }
                 taskVO1.setUser(userVO);
 

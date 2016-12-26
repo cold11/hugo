@@ -26,7 +26,7 @@
 
     <#list tasks.result as t>
     <div class="col-sm-10 col-sm-offset-1 c-margin-b-20">
-        <div class="appoint-list img-thumbnail">
+        <div class="appoint-list img-thumbnail" style="width: 100%">
             <div class="c-font-15 appoint-tit">
                 <p>
                     <b>约稿标题：</b>
@@ -41,12 +41,13 @@
                 <div class="col-sm-6">
                     <div class="c-font-grey-3">
                         <p>${t.user.releaseAgency}</p>
-                        <p>编辑</p>
+                        <p>${t.user.name}</p>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="text-right">
-                        <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#submission-form">我要投稿</a>
+                        <button class="btn btn-success btn-lg c-square inviteCSS" id="${t.taskId}">我要投稿</button>
+                        <#--<a class="btn btn-success btn-lg" data-toggle="modal" data-target="#submission-form" onclick="subTask('${t.taskId}');">我要投稿</a>-->
                     </div>
                 </div>
             </div>

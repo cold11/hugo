@@ -28,6 +28,8 @@
                 if(myD>= 0){
                     //var str = myD+"天"+myH+"小时"+myM+"分"+myS+"."+myMS+"秒";
                     var str = myD+"天"+myH+"小时"+myM+"分"+myS+"秒";
+                    var aEle = obj.parent().next();
+                    $(aEle).removeClass('disabled');
                 }else{
                     var str = "已结束！";
                     var aEle = obj.parent().next();
@@ -56,9 +58,8 @@
                     <div class="caption">
                         <p>书名：<span>${t.bookname}</span></p>
                         <p>作者：<span>${t.author}</span></p>
-                        <p>需要方向：<span>direction</span></p>
                         <p>距离截止时间：<b class="c-font-green-4 endtime" value="${t.transExpirationDateStr}">Loading...</b></p>
-                        <a class="btn btn-sm btn-primary c-margin-t-5" href="${ctx}/task/trans/trialTranslation/${t.taskId}">申请试译</a>
+                        <a class="btn btn-sm btn-primary c-margin-t-5 disabled" href="${ctx}/task/mytrans/trialTranslation/${t.taskId}">申请试译</a>
                     </div>
                 </div>
             </li>

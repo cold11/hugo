@@ -15,8 +15,12 @@ public class UserController extends BaseController {
     @RequestMapping(value = "home")
     public String home(){
         Subject subject = SecurityUtils.getSubject();
-        if(subject.hasRole("ROLE_TRANS")){
-            return "redirect:/task/trans/myTransTask";
+        if(subject.hasRole("ROLE_TRANS")){//翻译公司
+            return "redirect:/task/mytrans/myTransTask";
+        }else if(subject.hasRole("ROLE_AUTHOR")){//作者
+            return "redirect:/author/home";
+        }else if(subject.hasRole("ROLE_EDITOR")){//编辑
+            return "redirect:/editor/home";
         }
         return "";
     }

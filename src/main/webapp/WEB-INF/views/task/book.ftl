@@ -87,6 +87,17 @@
                     <div class="form-group">
                         <div class="col-xs-12">
                             <span class="text-danger">*</span>
+                            <select class="form-control" required id="classId" name="classId">
+                                <option value="" disabled selected>作品分类选择</option>
+                                <#list cList as c>
+                                    <option value="${c.id}">${c.name}</option>
+                                </#list>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <span class="text-danger">*</span>
                             <input type="text" class="form-control" required id="copyrightDescript" name="copyrightDescript" placeholder="版权及翻译情况说明">
                         </div>
                     </div>
@@ -96,18 +107,18 @@
                             <input type="text" class="form-control" required id="bookname" name="bookname" placeholder="书名">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <span class="text-danger">*</span>
-                            <input type="text" class="form-control" required id="author" name="author" placeholder="作者">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <span class="text-danger">*</span>
-                            <textarea class="form-control" rows="5" name="authorIntroduction" id="authorIntroduction" required placeholder="作者简介"></textarea>
-                        </div>
-                    </div>
+                    <#--<div class="form-group">-->
+                        <#--<div class="col-xs-12">-->
+                            <#--<span class="text-danger">*</span>-->
+                            <#--<input type="text" class="form-control" required id="author" name="author" placeholder="作者">-->
+                        <#--</div>-->
+                    <#--</div>-->
+                    <#--<div class="form-group">-->
+                        <#--<div class="col-xs-12">-->
+                            <#--<span class="text-danger">*</span>-->
+                            <#--<textarea class="form-control" rows="5" name="authorIntroduction" id="authorIntroduction" required placeholder="作者简介"></textarea>-->
+                        <#--</div>-->
+                    <#--</div>-->
                     <div class="form-group">
                         <div class="col-xs-12">
                             <textarea class="form-control" rows="5" name="bookIntroduction" id="bookIntroduction" placeholder="中文简介"></textarea>

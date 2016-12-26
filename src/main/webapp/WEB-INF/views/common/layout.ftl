@@ -116,10 +116,10 @@
                             <a href="${ctx}" class="c-link">首页</a>
                         </li>
                         <li class="${class2}">
-                            <a href="edition-this.html" class="c-link">中文版选题</a>
+                            <a href="${ctx}/opus/1" class="c-link">中文版选题</a>
                         </li>
                         <li class="${class3}">
-                            <a href="edition-foreign.html" class="c-link">外版选题</a>
+                            <a href="${ctx}/opus/2" class="c-link">外版选题</a>
                         </li>
                         <li class="${class4}">
                             <a href="${ctx}/task/editor/todo" class="c-link">编辑约稿</a>
@@ -128,7 +128,7 @@
                             <a href="${ctx}/task/trans/todo" class="c-link">翻译任务</a>
                         </li>
                         <li class="${class6}">
-                            <a href="team-list.html" class="c-link">翻译团队</a>
+                            <a href="${ctx}/user/transteam" class="c-link">翻译团队</a>
                         </li>
                         <li class="${class7}">
                             <a href="publisher.html" class="c-link">出版商</a>

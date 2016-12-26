@@ -81,7 +81,7 @@
                 <li class="c-state_active">待领取翻译任务</li>
                 <li>|</li>
                 <li>
-                    <a href="${ctx}/task/trans/history">历史翻译任务</a>
+                    <a href="${ctx}/task/mytrans/history">历史翻译任务</a>
                 </li>
                 <li>|</li>
                 <li>

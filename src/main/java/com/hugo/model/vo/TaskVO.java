@@ -21,6 +21,7 @@ public class TaskVO extends BaseVo {
     private String bookFlIntroduction;//外文简介
     private String publishType;//出版类型
     private String eBookType;//电子书类型
+    private String classId;//分类
     private Float eBookPrice;
     private String copyrightType;//版权类型
     private String copyrightDescript;//版权及翻译情况说明
@@ -137,6 +138,14 @@ public class TaskVO extends BaseVo {
 
     public void seteBookPrice(Float eBookPrice) {
         this.eBookPrice = eBookPrice;
+    }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
     }
 
     public String getCopyrightType() {

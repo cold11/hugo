@@ -24,7 +24,7 @@
 
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar">
 <script>
-    layer.alert('${message!""}');
+    layer.alert('${message!"非法操作!"}');
 </script>
 
 </body>

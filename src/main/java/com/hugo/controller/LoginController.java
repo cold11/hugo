@@ -54,7 +54,7 @@ public class LoginController extends BaseController {
             return jsonResult(false, "用户不存在！");
         }
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(userVO.getUsername(), userVO.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), userVO.getPassword());
         try {
             subject.login(token);
             if (subject.isAuthenticated()) {

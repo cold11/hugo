@@ -4,7 +4,7 @@ package com.hugo.model.vo;
  *
  * Created by ohj on 2016/10/4.
  */
-public class BaseUserVO{
+public class BaseUserVO extends BaseVo{
     protected Long userId;
     protected String username;
     protected String email;

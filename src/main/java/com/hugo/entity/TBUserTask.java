@@ -14,11 +14,13 @@ public class TBUserTask extends BaseEntity {
     private SysUser sysUser;
     private TBTask tbTask;
     private String trans;
+    private Integer userTaskType;
+    private String memo;
     private Integer status;
     @Id
     @Column(name = "user_task_id",unique = true, length = 36, nullable = false)
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
     public String getUserTaskId() {
         return userTaskId;
     }
@@ -61,5 +63,22 @@ public class TBUserTask extends BaseEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+    @Column(name = "memo",columnDefinition = "Text")
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    @Column(name = "user_task_type")
+    public Integer getUserTaskType() {
+        return userTaskType;
+    }
+
+    public void setUserTaskType(Integer userTaskType) {
+        this.userTaskType = userTaskType;
     }
 }
