@@ -87,7 +87,9 @@
         <div class="container">
             <div class="login-box clearfix">
                 <@shiro.user>
-                    <a href="${ctx}/user/home"><@shiro.principal></@shiro.principal></a>
+                    <a href="${ctx}/user/home"><@shiro.principal></@shiro.principal>(<@shiro.hasRole name="ROLE_AUTHOR">作者</@shiro.hasRole>&nbsp;
+                        <@shiro.hasRole name="ROLE_TRANS">翻译团队</@shiro.hasRole>&nbsp;<@shiro.hasRole name="ROLE_EDITOR">编辑</@shiro.hasRole>)
+                    </a>
                     <span>|</span>
                     <a href="${ctx}/logout" >退出</a>
                 </@shiro.user>
@@ -185,10 +187,10 @@
                     <h3 class="c-font-24 c-font-sbold">请选择您的身份</h3>
                     <div class="row c-margin-t-30">
                         <div class="col-xs-6">
-                            <a class="btn btn-success c-square btn-block btn-lg c-font-14 c-line-height-24 c-padding-20" href="${ctx}/signUp/regRelease">编辑<br />作者/译者<br />版权代理</a>
+                            <a class="btn btn-success c-square btn-block btn-lg c-font-14 c-line-height-24 c-padding-20" href="${ctx}/signUp/regRelease">编辑<br />版权代理</a>
                         </div>
                         <div class="col-xs-6">
-                            <a class="btn btn-primary c-square btn-block btn-lg c-font-14 c-line-height-24 c-padding-20" href="${ctx}/signUp/regTranslator">&nbsp;<br />翻译团队/翻译员<br />&nbsp;</a>
+                            <a class="btn btn-primary c-square btn-block btn-lg c-font-14 c-line-height-24 c-padding-20" href="${ctx}/signUp/regTranslator">&nbsp;作者/译者<br />翻译团队/翻译员</a>
                         </div>
                     </div>
                     <div class="c-margin-t-30 clearfix">

@@ -44,7 +44,7 @@
                 /task/editor/** = authc,roles[ROLE_EDITOR]
                 /task/book** = authc,roles[ROLE_AUTHOR]
                 /author/** = authc,roles[ROLE_AUTHOR]
-                /task/trans/** = authc,anyRoles[ROLE_EDITOR,ROLE_AUTHOR]
+                /task/trans/** = authc,roles[ROLE_EDITOR]
                 /task/mytrans/** = authc,roles[ROLE_TRANS]
                 /user/mytrans/** = authc,roles[ROLE_TRANS]
                 /user/mytransInvite** = authc,roles[ROLE_TRANS]

@@ -44,6 +44,8 @@ public class SysUser implements Serializable {
 	private Date createTime;
 	private Date modifyTime;
 
+    private String isTranslator;//
+
     public String getUserNo() {
         return userNo;
     }
@@ -324,7 +326,16 @@ public class SysUser implements Serializable {
 		this.loginDate = loginDate;
 	}
 
-	@JsonIgnore
+    @Transient
+    public String getIsTranslator() {
+        return isTranslator;
+    }
+
+    public void setIsTranslator(String isTranslator) {
+        this.isTranslator = isTranslator;
+    }
+
+    @JsonIgnore
 	@OneToMany(mappedBy="sysUser",cascade=CascadeType.ALL,orphanRemoval = true)
 	public Set<SysUserRole> getSysUserRoles() {
 		return sysUserRoles;

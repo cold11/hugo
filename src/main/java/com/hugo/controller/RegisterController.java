@@ -83,6 +83,7 @@ public class RegisterController extends BaseController {
             while (it.hasNext()){
                 MultipartFile file = request.getFile(it.next());
                 String fileName = file.getOriginalFilename();
+                if(StringUtils.isBlank(fileName))continue;
                 //String path = FileUtil.getFilePath(request, sysUser.getPhone());
                 String storePath = File.separator+sysUser.getUsername()+File.separator+"upload"+FileUtil.getDatePath();
                 String storeName = FileUtil.getRandName(fileName);

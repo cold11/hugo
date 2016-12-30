@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.hugo.common.CommonConstants;
 import com.hugo.common.page.Pager;
+import com.hugo.common.util.BeanUtilsEx;
 import com.hugo.dao.base.BaseDaoImpl;
 import com.hugo.entity.SysRole;
 import com.hugo.entity.SysUser;
@@ -48,19 +49,31 @@ public class SysUserDao extends BaseDaoImpl implements ISysUserDao {
                 if(1==sysUser.getReleaseRole()){
                     SysRole role = roleDao.findRoleKey(CommonConstants.ROLE_EDITOR);
                     sysUserRole.setSysRole(role);
-                }else if(2==sysUser.getReleaseRole()){
-                    SysRole role = roleDao.findRoleKey(CommonConstants.ROLE_AUTHOR);
-                    sysUserRole.setSysRole(role);
-                }else if(3==sysUser.getReleaseRole()){
+                }
+//                else if(2==sysUser.getReleaseRole()){
+//                    SysRole role = roleDao.findRoleKey(CommonConstants.ROLE_AUTHOR);
+//                    sysUserRole.setSysRole(role);
+//                }
+                else if(3==sysUser.getReleaseRole()){
                     SysRole role = roleDao.findRoleKey(CommonConstants.ROLE_ANGET);
                     sysUserRole.setSysRole(role);
                 }
-            }else if(null!=sysUser.getTranslatorType()){//翻译团队/翻译员
-                SysRole role = roleDao.findRoleKey(CommonConstants.ROLE_TRANS);
+            }else if(null!=sysUser.getTranslatorType()) {//翻译团队/翻译员(作者/译者)
+                SysRole role = roleDao.findRoleKey(CommonConstants.ROLE_AUTHOR);
+                sysUserRole.setSysRole(role);
+                //if(StringUtils.isNotBlank(sysUser.getIsTranslator())){
+                SysUserRole sysUserRole2 = new SysUserRole();
+                sysUserRole2.setSysUser(sysUser);
+                SysRole role2 = roleDao.findRoleKey(CommonConstants.ROLE_TRANS);
+                sysUserRole2.setSysRole(role2);
+                roles.add(sysUserRole2);
+                //}
+            }else{
+                SysRole role = roleDao.findRoleKey(CommonConstants.ROLE_AUTHOR);
                 sysUserRole.setSysRole(role);
             }
             roles.add(sysUserRole);
-            System.out.println(sysUser.getEmail()+">>>>>>>>>"+sysUser.getPhone());
+            //System.out.println(sysUser.getEmail()+">>>>>>>>>"+sysUser.getPhone());
             this.save(sysUser);
             System.out.println(sysUser.getUserId());
         }else {
@@ -194,5 +207,19 @@ public class SysUserDao extends BaseDaoImpl implements ISysUserDao {
             return pager;
         }
         return null;
+    }
+
+    @Override
+    public void saveTransTeam(SysUserVO userVO) {
+        SysUser sysUser = findEntityById(SysUser.class, ContextUtil.getUserId());
+        boolean hasTransRole = checkUserRole(sysUser.getUserId(), CommonConstants.ROLE_TRANS_ID);
+        if(!hasTransRole){
+            SysUserRole sysUserRole = new SysUserRole();
+            sysUserRole.setSysUser(sysUser);
+            SysRole role = roleDao.findRoleKey(CommonConstants.ROLE_TRANS);
+            sysUserRole.setSysRole(role);
+            sysUser.getSysUserRoles().add(sysUserRole);
+        }
+        BeanUtilsEx.copyNotNullProperties(sysUser,userVO);
     }
 }

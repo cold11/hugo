@@ -44,17 +44,7 @@
         <form class="form-horizontal" action="${ctx}/signUp/saveTransUser" method="post" id="translatorForm"enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <span class="text-danger">*</span>
-                            <select class="form-control" required id="translatorType" name="translatorType">
-                                <option value="" disabled selected>译员类型选择</option>
-                                <option value="1">个人</option>
-                                <option value="2">团队</option>
-                                <option value="3">公司</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <div class="col-xs-12">
                             <span class="text-danger">*</span>
@@ -93,6 +83,28 @@
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
+                            <textarea class="form-control" name="personalIntro" rows="5" placeholder="个人简介（很棒的个人简介可以吸引优秀的翻译团队，领取翻译任务）"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input name="isTranslator" id="isTranslator" type="checkbox">是否注册翻译团队
+                        </div>
+                    </div>
+                    <div id="transInfoDiv"  class="none">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <span class="text-danger">*</span>
+                            <select class="form-control" required id="translatorType" name="translatorType">
+                                <option value="" disabled selected>译员类型选择</option>
+                                <option value="1">个人</option>
+                                <option value="2">团队</option>
+                                <option value="3">公司</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
                             <span class="text-danger">*</span>
                             <input type="text" class="form-control" required id="language" name="language" placeholder="擅长语种">
                         </div>
@@ -122,6 +134,7 @@
                                 <div class="file-img"></div>
                             </div>
                         </div>
+                    </div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-6 control-label" id="captchaOperation"></label>

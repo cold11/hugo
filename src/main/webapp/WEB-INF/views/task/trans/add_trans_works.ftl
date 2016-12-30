@@ -14,11 +14,13 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="form-group">
                         <div class="col-xs-12">
+                            <span class="text-danger">*</span>
                             <input type="text" name="bookname" id="bookname" class="form-control" placeholder="书名">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
+                            <span class="text-danger">*</span>
                             <input type="text" class="form-control" required id="author" name="author" placeholder="作者">
                         </div>
                     </div>
@@ -42,11 +44,11 @@
                             <input type="text" name="publisher" id="publisher" class="form-control" placeholder="原出版商">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <textarea name="authorIntroduction" id="authorIntroduction" class="form-control" rows="5" placeholder="作者简介"></textarea>
-                        </div>
-                    </div>
+                    <#--<div class="form-group">-->
+                        <#--<div class="col-xs-12">-->
+                            <#--<textarea name="authorIntroduction" id="authorIntroduction" class="form-control" rows="5" placeholder="作者简介"></textarea>-->
+                        <#--</div>-->
+                    <#--</div>-->
                     <div class="form-group">
                         <div class="col-xs-12">
                             <textarea name="bookIntroduction" id="bookIntroduction" class="form-control" rows="5" placeholder="图书简介"></textarea>

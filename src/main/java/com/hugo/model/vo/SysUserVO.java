@@ -23,6 +23,7 @@ public class SysUserVO extends BaseUserVO {
     private String language;//擅长语种
     private String translationType;//擅长翻译类型
     private Integer translatorCount;//译员数
+    private String isTranslator;//注册时是否选中为翻译团队
 
     public String getPassword() {
         return password;
@@ -120,20 +121,30 @@ public class SysUserVO extends BaseUserVO {
         this.translatorCount = translatorCount;
     }
 
+    public String getIsTranslator() {
+        return isTranslator;
+    }
+
+    public void setIsTranslator(String isTranslator) {
+        this.isTranslator = isTranslator;
+    }
+
     @Override
     public String toString() {
         return "SysUserVO{" +
-                "username='" + username + '\'' +
-                ",password='" + password + '\'' +
+                "password='" + password + '\'' +
+                ", inputRoles=" + inputRoles +
                 ", translatorType=" + translatorType +
                 ", releaseRole=" + releaseRole +
                 ", postscript='" + postscript + '\'' +
                 ", releaseAgency='" + releaseAgency + '\'' +
                 ", releaseCompany='" + releaseCompany + '\'' +
+                ", companyDesc='" + companyDesc + '\'' +
                 ", personalIntro='" + personalIntro + '\'' +
                 ", language='" + language + '\'' +
                 ", translationType='" + translationType + '\'' +
                 ", translatorCount=" + translatorCount +
+                ", isTranslator='" + isTranslator + '\'' +
                 '}';
     }
 }

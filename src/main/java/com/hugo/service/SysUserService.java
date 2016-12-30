@@ -3,6 +3,7 @@ package com.hugo.service;
 import com.hugo.common.page.Pager;
 import com.hugo.dao.ISysUserDao;
 import com.hugo.entity.SysUser;
+import com.hugo.model.vo.SysUserVO;
 import com.hugo.service.base.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,5 +71,10 @@ public class SysUserService extends BaseService implements ISysUserService {
     @Override
     public Pager getUserPager(Pager pager) {
         return sysUserDao.getUserPager(pager);
+    }
+
+    @Override
+    public void saveTransTeam(SysUserVO userVO) {
+        sysUserDao.saveTransTeam(userVO);
     }
 }

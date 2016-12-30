@@ -109,6 +109,15 @@ $(function() {
 						break;
 				}
 			});
+
+            $("#isTranslator").change(function() {
+                var transInfoDiv = $("#transInfoDiv");
+                var releaseCompany = $("#releaseCompany");
+                var n = $(this).is(':checked');
+                if(n){
+                    transInfoDiv.show();
+                }else transInfoDiv.hide();
+            });
 		},
 		offcanvas: function() {
 			$('[data-toggle="offcanvas"]').click(function () {

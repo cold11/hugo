@@ -3,6 +3,7 @@ package com.hugo.dao;
 import com.hugo.common.page.Pager;
 import com.hugo.dao.base.IBaseDao;
 import com.hugo.entity.SysUser;
+import com.hugo.model.vo.SysUserVO;
 
 import java.util.Set;
 
@@ -58,4 +59,6 @@ public interface ISysUserDao extends IBaseDao{
     SysUser validatePhone(String phone);
 
     Pager getUserPager(Pager pager);
+
+    void saveTransTeam(SysUserVO userVO);
 }

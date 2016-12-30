@@ -2,6 +2,7 @@ package com.hugo.service;
 
 import com.hugo.common.page.Pager;
 import com.hugo.entity.SysUser;
+import com.hugo.model.vo.SysUserVO;
 import com.hugo.service.base.IBaseService;
 
 import java.util.Set;
@@ -55,4 +56,5 @@ public interface ISysUserService extends IBaseService {
 
     SysUser validatePhone(String phone);
     Pager getUserPager(Pager pager);
+    void saveTransTeam(SysUserVO userVO);
 }

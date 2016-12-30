@@ -52,7 +52,7 @@
                             <select class="form-control" required id="releaseRole" name="releaseRole">
                                 <option value="" disabled selected>发布人角色</option>
                                 <option value="1">编辑</option>
-                                <option value="2">作者/译者</option>
+                                <#--<option value="2">作者/译者</option>-->
                                 <option value="3">版权代理</option>
                             </select>
                         </div>

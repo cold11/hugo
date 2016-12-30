@@ -77,7 +77,7 @@ $(function () {
         queueSizeLimit  : 1,
         //btnClass : 'btn photo-add',
         fileTypeExts:'*.jpeg;*.jpg;*.png;*.bmp',
-        uploader:APP_BASE+'/task/mytrans/upload',
+        uploader:APP_BASE+'/author/upload',
         onUploadSuccess: function (file, data, response) {
             data = $.parseJSON(data);
             if(data.success){
@@ -95,10 +95,10 @@ $(function () {
 });
 
 function submitForm(form){
-    $.post(APP_BASE+"/task/mytrans/saveWorks", form.serialize(), function(result) {
+    $.post(APP_BASE+"/author/saveWorks", form.serialize(), function(result) {
         if (result.success) {
             alert(result.msg);
-            location.href=APP_BASE+"/task/mytrans/myTransTask";
+            location.href=APP_BASE+"/author/home";
         } else {
             layer.msg("发布失败");
             $('#'+form.attr('id')).bootstrapValidator('disableSubmitButtons', false);

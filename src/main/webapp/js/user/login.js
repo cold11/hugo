@@ -54,7 +54,7 @@ function loginUser(form){
         url: APP_BASE+"/doLogin",
         data: params,
         success: function (data) {
-            console.log(data);
+            //console.log(data);
             if(data.success) {
                 window.location.href=APP_BASE+"/"+data.msg;
             } else {
