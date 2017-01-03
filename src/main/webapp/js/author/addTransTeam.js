@@ -27,10 +27,10 @@ $(function () {
 function submit(form){
     $.post(form.attr('action'), form.serialize(), function(result) {
         if (result.success) {
-            alert(result.msg);
-            location.href=APP_BASE+"/login";
+            layer.alert(result.msg);
+
         } else {
-            layer.msg(result.msg);
+            layer.alert(result.msg);
             $('#'+form.attr('id')).bootstrapValidator('disableSubmitButtons', false);
 
         }

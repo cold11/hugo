@@ -7,27 +7,31 @@
 
 
 
-<form class="form-horizontal" method="post" action="${ctx}/author/saveTransTeam" id="transForm">
+<form class="form-horizontal" method="post" action="${ctx}/author/saveTransTeam" id="translatorForm">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="form-group">
                 <div class="col-xs-12">
                     <span class="text-danger">*</span>
+                    <label class="col-lg-2 control-label" for="language">擅长语种:</label>
                     <input type="text" class="form-control" required id="language" name="language" value="${user.language}" placeholder="擅长语种">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
+                    <label class="col-lg-2 control-label" for="translationType">擅长翻译类型:</label>
                     <input type="text" name="translationType" id="translationType" class="form-control" value="${user.translationType}" placeholder="擅长翻译类型：科技、财经、小说、传记、其他">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
+                    <label class="col-lg-2 control-label" for="language">译员数:</label>
                     <input type="number" name="translatorCount" id="translatorCount" value="${user.translatorCount}" class="form-control" placeholder="译员数">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12">
+                    <label class="col-lg-2 control-label" for="language">团队介绍:</label>
                     <textarea name="companyDesc" id="companyDesc" class="form-control" rows="5" placeholder="团队介绍">${user.companyDesc}</textarea>
                 </div>
             </div>
