@@ -25,6 +25,8 @@ public class SysUserVO extends BaseUserVO {
     private Integer translatorCount;//译员数
     private String isTranslator;//注册时是否选中为翻译团队
 
+    private String filePath;//头像路径
+
     public String getPassword() {
         return password;
     }
@@ -129,6 +131,14 @@ public class SysUserVO extends BaseUserVO {
         this.isTranslator = isTranslator;
     }
 
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
     public String toString() {
         return "SysUserVO{" +
@@ -145,6 +155,7 @@ public class SysUserVO extends BaseUserVO {
                 ", translationType='" + translationType + '\'' +
                 ", translatorCount=" + translatorCount +
                 ", isTranslator='" + isTranslator + '\'' +
+                ", filePath='" + filePath + '\'' +
                 '}';
     }
 }

@@ -1,5 +1,7 @@
 <@layout.head title="个人中心 - 雨果翻译">
 <script src="${ctx}/lib/pagination/jquery.twbsPagination.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${ctx}/lib/Huploadify-html5/Huploadify.css" media="all">
+<script type="text/javascript" src="${ctx}/lib/Huploadify-html5/jquery.Huploadify.js"></script>
 <script type="text/javascript">
     var task = {pageNo:1,taskStatus:1};
     function loadList() {
@@ -33,7 +35,14 @@
         }else if(status==3){
             var url = '${ctx}/user/mytransInviteList';
             loadList2(url);
-        }else {
+        }else if(status==10){
+            url = '${ctx}/user/userInfo';
+            loadList2(url)
+        }else if(status==11){
+            url = '${ctx}/user/updatePsd';
+            loadList2(url)
+        }
+        else {
             task.taskStatus = status;
             loadList();
         }
@@ -111,6 +120,19 @@
                                 </li>
                                 <li>
                                     <a href="javascript:void(0);" id="4">添加作品 <i class="fa fa-angle-right"></i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="c-dropdown c-open">
+                            <a href="javascript:;">
+                                个人资料
+                            </a>
+                            <ul class="c-dropdown-menu">
+                                <li>
+                                    <a href="javascript:void(0);" id="10">个人资料维护 <i class="fa fa-angle-right"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" id="11">修改密码 <i class="fa fa-angle-right"></i></a>
                                 </li>
                             </ul>
                         </li>
