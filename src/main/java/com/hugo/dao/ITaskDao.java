@@ -9,4 +9,5 @@ import com.hugo.model.vo.TaskVO;
  */
 public interface ITaskDao extends IBaseDao {
     Pager getTaskPager(Pager<TaskVO> pager);
+    void saveEditorHistory(TaskVO taskVO);
 }

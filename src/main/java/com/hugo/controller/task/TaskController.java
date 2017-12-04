@@ -133,6 +133,9 @@ public class TaskController extends BaseController {
         File file = new File(path,fileName);
         if(file.exists()&&file.isFile()){
             showImage(response, file.getAbsolutePath());
+        }else {
+            file = new File(path,"nophoto.png");
+            if(file.exists())showImage(response, file.getAbsolutePath());
         }
     }
 

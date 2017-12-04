@@ -26,7 +26,7 @@
                         <div class="col-sm-3 col-md-2">
                             <div class="team-list-logo">
                                 <a href="${ctx}/user/transteamcontent/${t.userId}">
-                                    <img src="${ctx}/task/getImage?fileName=${t.filePath}"/>
+                                    <img src="${ctx}/task/getImage?fileName=${(t.filePath)?replace("\\","/")}"/>
                                 </a>
                             </div>
                         </div>

@@ -32,6 +32,7 @@ public class TaskVO extends BaseVo {
     private Integer taskType;//任务类型
     private Integer taskStatus;
     private String transExpirationDateStr;//试译截止时间
+    private Integer viewCount;
     private SysUserVO user;
     public TaskVO() {
     }
@@ -226,5 +227,13 @@ public class TaskVO extends BaseVo {
 
     public void setUser(SysUserVO user) {
         this.user = user;
+    }
+
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
     }
 }

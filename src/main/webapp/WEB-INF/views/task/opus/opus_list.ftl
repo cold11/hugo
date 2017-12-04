@@ -21,15 +21,20 @@
         <#list tasks.result as t>
             <li>
                 <div class="thumbnail">
-                    <a href="#">
-                        <img src="${ctx}/task/getImage?fileName=${t.coverPath}"/>
+                    <a href="${ctx}/opus/bookInfo/${t.taskId}">
+                        <#if t.coverPath??>
+                            <img src="${ctx}/task/getImage?fileName=${(t.coverPath)?replace("\\","/")}"/>
+                        </#if>
+
                         <div class="desc">
                             <p>${t.bookname} - ${t.publisher}</p>
                             <p>${t.bookIntroduction}</p>
                         </div>
                     </a>
                     <div class="caption">
-                        <#--<a class="zan" href="javascript:;"><i class="fa fa-heart-o"></i>100</a>-->
+                        <#if t.viewCount gt 0>
+                        <a class="zan" href="javascript:;"><i class="fa fa-heart-o"></i>${t.viewCount!0}</a>
+                        </#if>
                         <p>书名：<span>${t.bookname}</span></p>
                         <p>作者：<span>${t.author}</span></p>
                         <a class="btn btn-sm btn-primary c-margin-t-5" href="${ctx}/opus/writerInfo?userId=${t.user.userId}">查看作者信息</a>

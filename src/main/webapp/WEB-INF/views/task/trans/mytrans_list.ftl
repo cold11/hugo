@@ -23,7 +23,7 @@
             <li>
                 <div class="thumbnail">
                     <a href="#">
-                        <img src="${ctx}/task/getImage?fileName=${t.tbTask.coverPath}"/>
+                        <img src="${ctx}/task/getImage?fileName=${(t.tbTask.coverPath)?replace("\\","/")}"/>
                         <div class="desc">
                             <p>${t.tbTask.bookname} - ${t.tbTask.publisher}</p>
                             <p>${t.tbTask.bookIntroduction}</p>

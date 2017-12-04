@@ -9,4 +9,5 @@ import com.hugo.service.base.IBaseService;
  */
 public interface ITaskService extends IBaseService {
     Pager getTaskPager(Pager<TaskVO> pager);
+    void saveEditorHistory(TaskVO taskVO);
 }

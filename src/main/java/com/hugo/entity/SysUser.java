@@ -65,6 +65,7 @@ public class SysUser implements Serializable {
     private Set<TBTask> tbTasks = new HashSet<>();
 
     private Set<TBUserTask> tbUserTasks = new HashSet<>();
+	private Set<EditorViewHistory> editorViewHistories = new HashSet<>();
 	// Constructors
 
 	/** default constructor */
@@ -362,4 +363,14 @@ public class SysUser implements Serializable {
     public void setTbUserTasks(Set<TBUserTask> tbUserTasks) {
         this.tbUserTasks = tbUserTasks;
     }
+
+	@JsonIgnore
+	@OneToMany(mappedBy="sysUser",cascade=CascadeType.ALL,orphanRemoval = true)
+	public Set<EditorViewHistory> getEditorViewHistories() {
+		return editorViewHistories;
+	}
+
+	public void setEditorViewHistories(Set<EditorViewHistory> editorViewHistories) {
+		this.editorViewHistories = editorViewHistories;
+	}
 }

@@ -37,8 +37,10 @@ public class TBTask extends BaseEntity {
     private Integer taskType;//任务类型
     private Integer taskStatus;//任务状态
     private TBClassification classification;//分类
+    private Integer viewCount;//热度
 
     private Set<TBUserTask> tbUserTasks = new HashSet<>();
+    private Set<EditorViewHistory> editorViewHistories = new HashSet<>();
 
     @Id
     @Column(name = "task_id",unique = true, length = 36, nullable = false)
@@ -228,7 +230,18 @@ public class TBTask extends BaseEntity {
     public void setTaskStatus(Integer taskStatus) {
         this.taskStatus = taskStatus;
     }
-    @ManyToOne(cascade=CascadeType.ALL)
+
+    @Column(name = "view_count")
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    //@ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id", unique = true,nullable = true)
     public TBClassification getClassification() {
         return classification;
@@ -246,5 +259,15 @@ public class TBTask extends BaseEntity {
 
     public void setTbUserTasks(Set<TBUserTask> tbUserTasks) {
         this.tbUserTasks = tbUserTasks;
+    }
+
+    @JsonIgnore
+    @OneToMany(mappedBy="tbTask",cascade=CascadeType.ALL,orphanRemoval = true)
+    public Set<EditorViewHistory> getEditorViewHistories() {
+        return editorViewHistories;
+    }
+
+    public void setEditorViewHistories(Set<EditorViewHistory> editorViewHistories) {
+        this.editorViewHistories = editorViewHistories;
     }
 }

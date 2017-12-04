@@ -22,7 +22,8 @@ $(function () {
                     remote: {
                         url: APP_BASE+'/validateUser4all',
                         type: 'POST',
-                        delay: 2000
+                        delay: 2000,
+                        message: '用户名错误!'
                     }
                 }
             },

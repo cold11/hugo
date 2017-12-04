@@ -18,4 +18,9 @@ public class TaskService extends BaseService implements ITaskService {
     public Pager getTaskPager(Pager<TaskVO> pager) {
         return taskDao.getTaskPager(pager);
     }
+
+    @Override
+    public void saveEditorHistory(TaskVO taskVO) {
+        taskDao.saveEditorHistory(taskVO);
+    }
 }

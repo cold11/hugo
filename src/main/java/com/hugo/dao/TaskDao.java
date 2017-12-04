@@ -5,10 +5,12 @@ import com.google.common.collect.Maps;
 import com.hugo.common.page.Pager;
 import com.hugo.common.util.DateUtil;
 import com.hugo.dao.base.BaseDaoImpl;
+import com.hugo.entity.EditorViewHistory;
 import com.hugo.entity.SysUser;
 import com.hugo.entity.TBTask;
 import com.hugo.model.vo.SysUserVO;
 import com.hugo.model.vo.TaskVO;
+import com.hugo.util.StringUtil;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -77,6 +79,8 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
             List<TaskVO> taskVOs = Lists.newArrayList();
             List<TBTask> tbTasks = getPageListByParamMap(hql,paramMap,pager.getPageNo(),pager.getPageSize());
             for (TBTask task : tbTasks){
+                String bookIntroduction = task.getBookIntroduction();
+                bookIntroduction = StringUtil.getSubString(bookIntroduction,200);
                 TaskVO taskVO1 = new TaskVO();
                 try {
                     BeanUtils.copyProperties(taskVO1,task);
@@ -85,6 +89,7 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 }
+                taskVO1.setBookIntroduction(bookIntroduction);
                 SysUser sysUser = task.getSysUser();
                 SysUserVO userVO = new SysUserVO();
                 if(sysUser!=null){
@@ -107,5 +112,24 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
             return pager;
         }
         return null;
+    }
+
+    @Override
+    public void saveEditorHistory(TaskVO taskVO) {
+        if(taskVO!=null){
+            TBTask tbTask = this.findEntityById(TBTask.class,taskVO.getTaskId());
+            Integer viewCount = tbTask.getViewCount();
+            if(viewCount==null)
+                tbTask.setViewCount(1);
+            else tbTask.setViewCount(viewCount+1);
+            EditorViewHistory editorViewHistory = new EditorViewHistory();
+            SysUser sysUser = new SysUser();
+            sysUser.setUserId(taskVO.getUser().getUserId());
+            sysUser = findEntityById(SysUser.class,sysUser.getUserId());
+            editorViewHistory.setTbTask(tbTask);
+            editorViewHistory.setSysUser(sysUser);
+            editorViewHistory.setCreateTime(new Date());
+            this.save(editorViewHistory);
+        }
     }
 }

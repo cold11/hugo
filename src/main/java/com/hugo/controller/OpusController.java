@@ -7,16 +7,19 @@ import com.hugo.controller.base.BaseController;
 import com.hugo.entity.SysUser;
 import com.hugo.entity.TBClassification;
 import com.hugo.entity.TBTask;
+import com.hugo.model.vo.SysUserVO;
 import com.hugo.model.vo.TaskVO;
 import com.hugo.service.IClassificationService;
 import com.hugo.service.ISysUserService;
 import com.hugo.service.ITaskService;
+import com.hugo.util.ContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -65,6 +68,22 @@ public class OpusController extends BaseController {
         return "/task/opus/opus_list";
     }
 
+    @RequestMapping("/bookInfo/{taskId}")
+    public ModelAndView bookInfo(@PathVariable("taskId") String taskId){
+        TBTask task = taskService.findEntityById(TBTask.class,taskId);
+        ModelAndView modelAndView = new ModelAndView("/task/opus/book_info");
+        modelAndView.addObject("task",task);
+        Long loginUserId = ContextUtil.getUserId();
+        if(taskId!=null) {
+            TaskVO taskVO = new TaskVO();
+            taskVO.setTaskId(taskId);
+            SysUserVO sysUserVO = new SysUserVO();
+            sysUserVO.setUserId(loginUserId);
+            taskVO.setUser(sysUserVO);
+            taskService.saveEditorHistory(taskVO);
+        }
+        return modelAndView;
+    }
     /**
      * 作者信息
      * @param model
@@ -72,7 +91,7 @@ public class OpusController extends BaseController {
      * @return
      */
     @RequestMapping("/writerInfo")
-    public String writerInfo(Model model,Long userId){
+    public String writerInfo(Model model,Long userId,String bookId){
         if(userId==null){
             return "/common/illegal";
         }

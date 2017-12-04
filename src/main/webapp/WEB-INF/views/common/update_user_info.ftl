@@ -47,7 +47,7 @@
                 <div class="col-sm-3 text-right hidden-xs"><b>头 像：</b></div>
                 <div class="col-sm-8 col-md-6">
                     <div class="file clearfix">
-                        <div class="file-img head-img"><a class="file-del" href="javascript:;"><img id="prviewImg" src="${ctx}/task/getImage?fileName=${user.filePath}" alt="" /></a></div>
+                        <div class="file-img head-img"><a class="file-del" href="javascript:;"><img id="prviewImg" src="${ctx}/task/getImage?fileName=${(user.filePath)?replace("\\","/")}" alt="" /></a></div>
                         <div id="upload1"></div>
                         <#--<div class="file-img head-img"><a class="file-del" href="javascript:;"><img src="${ctx}/task/getImage?fileName=${filePath}" alt="" /></a></div>-->
                         <#--<a href="javascript:;" class="btn head-add">-->

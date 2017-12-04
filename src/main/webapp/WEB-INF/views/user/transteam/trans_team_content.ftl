@@ -61,7 +61,7 @@
                         <div class="col-sm-3 col-md-2">
                             <div class="team-list-logo">
                                 <#--<a href="team-content.html">-->
-                                    <img src="${ctx}/task/getImage?fileName=${user.filePath}"/>
+                                    <img src="${ctx}/task/getImage?fileName=${(user.filePath)?replace("\\","/")}"/>
                                 <#--</a>-->
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                                 <li>
                                     <div class="thumbnail">
                                         <a href="#">
-                                            <img src="${ctx}/task/getImage?fileName=${t.coverPath}"/>
+                                            <img src="${ctx}/task/getImage?fileName=${(t.coverPath)?replace("\\","/")}"/>
                                             <div class="desc">
                                                 <p>${t.bookname} - ${t.publisher}</p>
                                                 <p>${t.transContent}</p>

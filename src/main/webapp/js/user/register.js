@@ -2,6 +2,7 @@
  * Created by Administrator on 2016/10/4.
  */
 $(function () {
+    $("#email").mailAutoComplete();
     function randomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     };

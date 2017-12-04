@@ -1,5 +1,11 @@
 <@layout.head title="注册 - 发布人">
+<script type="text/javascript" src="${ctx}/lib/email/jquery.mailAutoComplete-4.0.js"></script>
 <script type="text/javascript" src="${ctx}/js/user/register.js"></script>
+<style type="text/css">
+.emailist{border:1px solid #bdbdbd; border-radius: 4px; background-color:#fff; color:#666; font-size:14px; list-style-type:0; padding:0; margin:0; overflow:hidden;}
+.emailist li{padding:2px 11px; cursor:pointer;}
+.emailist .on, .emailist li:hover{background-color:#eee;}
+</style>
 </@layout.head>
 <@layout.body>
 <!-- banner
@@ -36,11 +42,11 @@
     <div class="container">
         <div class="row c-font-16 c-margin-b-30">
             <div class="col-sm-7 col-md-5 col-md-offset-2">
-                <h3 class="c-font-20 c-font-bold">编辑/作者/译者/版权代理 快速注册</h3>
+                <h3 class="c-font-20 c-font-bold">编辑/版权代理 快速注册</h3>
                 <p class="c-margin-t-20 c-margin-b-10">请填写以下表格进行注册</p>
             </div>
             <div class="col-sm-5 col-md-4">
-                <p>翻译团队/翻译员 注册 <a class="c-font-blue-3" href="${ctx}/signUp/regTranslator">点击这里</a></p>
+                <p>作者/译者/翻译团队/翻译员 注册 <a class="c-font-blue-3" href="${ctx}/signUp/regTranslator">点击这里</a></p>
             </div>
         </div>
         <form class="form-horizontal" action="${ctx}/signUp/saveReleaseUser" method="post" id="releaseForm">

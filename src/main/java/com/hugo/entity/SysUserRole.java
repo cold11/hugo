@@ -39,7 +39,8 @@ public class SysUserRole implements java.io.Serializable {
 		this.userRoleId = userRoleId;
 	}
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    //@ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", unique = true)
     public SysUser getSysUser() {
         return sysUser;
@@ -48,7 +49,8 @@ public class SysUserRole implements java.io.Serializable {
     public void setSysUser(SysUser sysUser) {
         this.sysUser = sysUser;
     }
-    @ManyToOne(cascade=CascadeType.ALL)
+    //@ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", unique = true)
     public SysRole getSysRole() {
         return sysRole;
