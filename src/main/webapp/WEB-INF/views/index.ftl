@@ -17,7 +17,7 @@
 <div class="c-content-box c-size-md c-bg-white">
     <div class="container">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="c-content-feature-1 text-center">
                     <a href="${ctx}/task/book">
                         <span class="c-content-line-icon c-theme c-icon-22"></span>
@@ -25,7 +25,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <div class="c-content-feature-1 text-center">
                     <a href="${ctx}/task/editor">
                         <span class="c-content-line-icon c-theme c-icon-screen-chart"></span>
@@ -33,7 +33,15 @@
                     </a>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
+                <div class="c-content-feature-1 text-center">
+                    <a href="${ctx}/task/editor/copyrightOutput">
+                        <span class="c-content-line-icon c-theme c-icon-41"></span>
+                        <span class="c-font-20">发布版权</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-3">
                 <div class="c-content-feature-1 text-center">
                     <a href="${ctx}/task/trans">
                         <span class="c-content-line-icon c-theme c-icon-40"></span>

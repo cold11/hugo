@@ -66,6 +66,7 @@ public class CommonConstants {
     public static final Integer IS_BOOK_2 = 2;//图书任务
     public static final Integer IS_EDIT_3 = 3;//编辑约稿
     public static final Integer IS_USER_ADD_4 = 4;//用户添加
+    public static final Integer IS_COPYRIGHT_OUTPUT_5 = 5;//版权输出
 
     public static final Integer COPYRIGHTTYPE_1 = 1;//中文版版原著国内出版
     public static final Integer COPYRIGHTTYPE_2 = 2;//外版译著引进出版

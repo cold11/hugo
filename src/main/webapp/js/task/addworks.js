@@ -97,8 +97,13 @@ $(function () {
 function submitForm(form){
     $.post(APP_BASE+"/task/mytrans/saveWorks", form.serialize(), function(result) {
         if (result.success) {
-            alert(result.msg);
-            location.href=APP_BASE+"/task/mytrans/myTransTask";
+            layer.alert(result.msg, {
+                skin: 'layui-layer-molv', //样式类名
+                closeBtn: 1
+                ,anim: 4 //动画类型
+            }, function(){
+                location.href=APP_BASE+"/task/mytrans/myTransTask";
+            });
         } else {
             layer.msg("发布失败");
             $('#'+form.attr('id')).bootstrapValidator('disableSubmitButtons', false);

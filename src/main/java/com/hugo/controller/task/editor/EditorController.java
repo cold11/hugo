@@ -5,22 +5,27 @@ import com.hugo.common.page.Pager;
 import com.hugo.common.util.DateUtil;
 import com.hugo.controller.base.BaseController;
 import com.hugo.entity.SysUser;
+import com.hugo.entity.TBClassification;
 import com.hugo.entity.TBTask;
 import com.hugo.entity.TBTransMessage;
 import com.hugo.model.vo.TaskVO;
 import com.hugo.model.vo.TransMessageVO;
+import com.hugo.service.IClassificationService;
 import com.hugo.service.ITaskService;
 import com.hugo.service.ITransMessageService;
 import com.hugo.util.ContextUtil;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,6 +38,8 @@ public class EditorController extends BaseController {
     private ITaskService taskService;
     @Autowired
     private ITransMessageService transMessageService;
+    @Autowired
+    private IClassificationService classificationService;
     @RequestMapping("")
     public String editor(){
         return "/task/editor";
@@ -97,4 +104,39 @@ public class EditorController extends BaseController {
         return jsonResult(success,message);
     }
 
+    /**
+     * 版权输出
+     * @return
+     */
+    @RequestMapping(value = "/copyrightOutput")
+    public ModelAndView copyrightOutput(){
+        ModelAndView modelAndView = new ModelAndView("/editor/copyright_output");
+        List<TBClassification> list = classificationService.getList();
+        modelAndView.addObject("cList",list);
+        return modelAndView;
+    }
+    @RequestMapping(value = "/pubCopyRightOutput",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String,Object> pubCopyRightOutput(TaskVO taskVO){
+        boolean success = true;
+        TBTask task = new TBTask();
+        try {
+            SysUser sysUser = taskService.findEntityById(SysUser.class, ContextUtil.getUserId());
+            BeanUtils.copyProperties(task, taskVO);
+            task.setCreateTime(new Date());
+            task.setSysUser(sysUser);
+            task.setTaskType(CommonConstants.IS_COPYRIGHT_OUTPUT_5);
+            task.setCopyrightType(CommonConstants.COPYRIGHTTYPE_3+"");
+            task.setTaskStatus(CommonConstants.TASK_STATUS_0);
+            if(StringUtils.isNotBlank(taskVO.getClassId())){
+                TBClassification tbClassification =classificationService.findEntityById(TBClassification.class,taskVO.getClassId());
+                task.setClassification(tbClassification);
+            }
+            taskService.save(task);
+        } catch (Exception e) {
+            success = false;
+            e.printStackTrace();
+        }
+        return jsonResult(success,"发布成功！");
+    }
 }

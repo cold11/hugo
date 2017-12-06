@@ -263,6 +263,7 @@ public class TBTask extends BaseEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy="tbTask",cascade=CascadeType.ALL,orphanRemoval = true)
+    @OrderBy("createTime desc")
     public Set<EditorViewHistory> getEditorViewHistories() {
         return editorViewHistories;
     }

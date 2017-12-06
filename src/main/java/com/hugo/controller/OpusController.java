@@ -4,15 +4,18 @@ import com.google.common.collect.Lists;
 import com.hugo.common.CommonConstants;
 import com.hugo.common.page.Pager;
 import com.hugo.controller.base.BaseController;
+import com.hugo.entity.EditorViewHistory;
 import com.hugo.entity.SysUser;
 import com.hugo.entity.TBClassification;
 import com.hugo.entity.TBTask;
 import com.hugo.model.vo.SysUserVO;
 import com.hugo.model.vo.TaskVO;
+import com.hugo.model.vo.ViewHistoryVo;
 import com.hugo.service.IClassificationService;
 import com.hugo.service.ISysUserService;
 import com.hugo.service.ITaskService;
 import com.hugo.util.ContextUtil;
+import com.hugo.util.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,6 +85,15 @@ public class OpusController extends BaseController {
             taskVO.setUser(sysUserVO);
             taskService.saveEditorHistory(taskVO);
         }
+        List<ViewHistoryVo> historyVos = Lists.newArrayList();
+        List<EditorViewHistory> list = Lists.newArrayList(task.getEditorViewHistories());
+        for (EditorViewHistory editorViewHistory : list){
+            ViewHistoryVo viewHistoryVo = new ViewHistoryVo();
+            viewHistoryVo.setDateStr(DateUtil.getShortTime(editorViewHistory.getCreateTime()));
+            viewHistoryVo.setUsername(editorViewHistory.getSysUser().getUsername());
+            historyVos.add(viewHistoryVo);
+        }
+        modelAndView.addObject("history",historyVos);
         return modelAndView;
     }
     /**
@@ -91,7 +103,7 @@ public class OpusController extends BaseController {
      * @return
      */
     @RequestMapping("/writerInfo")
-    public String writerInfo(Model model,Long userId,String bookId){
+    public String writerInfo(Model model,Long userId){
         if(userId==null){
             return "/common/illegal";
         }
@@ -104,4 +116,5 @@ public class OpusController extends BaseController {
         }
         return null;
     }
+
 }

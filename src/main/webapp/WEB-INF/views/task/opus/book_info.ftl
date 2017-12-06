@@ -1,19 +1,48 @@
 <@layout.head title="图书信息 - 雨果翻译">
-<script type="text/javascript">
-    function invite(userId){
-        <@shiro.hasRole name="ROLE_EDITOR">
-            $.post("${ctx}/task/editor/invitation",{userId:userId}).done(function(data){
-                layer.alert(data.msg);
-            }).fail(function(){
-                layer.alert("出现错误");
-            }).always(function(){
-                $('#'+userId).removeAttr("disabled");
-            });
-        </@shiro.hasRole>
-        <@shiro.lacksRole name="ROLE_EDITOR">
-            layer.alert('权限不够,不能发出邀请!',{icon:8});
-        </@shiro.lacksRole>
+<script type="text/javascript" src="${ctx}/lib/newsbox/jquery.bootstrap.newsbox.min.js"></script>
+<style type="text/css">
+    .glyphicon
+    {
+        margin-right:4px !important; /*override*/
     }
+
+    .pagination .glyphicon
+    {
+        margin-right:0px !important; /*override*/
+    }
+
+    .pagination a
+    {
+        color:#555;
+    }
+
+    .panel ul
+    {
+        padding:0px;
+        margin:0px;
+        list-style:none;
+    }
+
+    .news-item
+    {
+        padding:4px 4px;
+        margin:0px;
+        border-bottom:1px dotted #555;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        $("#hlist").bootstrapNews({
+            newsPerPage: 5,
+            autoplay: true,
+            pauseOnHover:true,
+            direction: 'up',
+            newsTickerInterval: 4000,
+            onToDo: function () {
+                console.log(this);
+            }
+        });
+    });
 </script>
 </@layout.head>
 <@layout.body>
@@ -55,12 +84,14 @@
 	================================================================================-->
 <div class="area">
     <div class="container">
+
+
         <div class="team-cont c-margin-t-10">
             <div class="team-tit c-margin-b-20">
                 <h2>图书信息</h2>
             </div>
             <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-9">
                     <div class="row">
                         <div class="col-sm-3 col-md-2">
                             <div class="team-list-logo">
@@ -82,11 +113,31 @@
                         </div>
                     </div>
                 </div>
-            <#--<div class="col-sm-2">-->
-            <#--<div class="c-margin-t-20 c-margin-b-20 text-center">-->
-            <#--<a class="btn btn-success btn-lg c-square" href="javascript:;">联系作者</a>-->
-            <#--</div>-->
-            <#--</div>-->
+            <div class="col-sm-3">
+                <#if history?size gt 0 >
+                <!-- 浏览历史 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-list-alt"></span><b>浏览历史</b></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div>
+                                <ul id="hlist" style="overflow-y: hidden; height: 150px;">
+                                    <#list history as h>
+                                        <li class="news-item">${h.username}在${h.dateStr}浏览过该图书</li>
+
+                                    </#list>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+
+                    </div>
+                </div>
+                </#if>
+
+            </div>
             </div>
         </div>
         <div class="team-tab" role="tabpanel">

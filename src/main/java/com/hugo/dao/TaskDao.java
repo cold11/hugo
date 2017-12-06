@@ -122,14 +122,18 @@ public class TaskDao extends BaseDaoImpl implements ITaskDao {
             if(viewCount==null)
                 tbTask.setViewCount(1);
             else tbTask.setViewCount(viewCount+1);
-            EditorViewHistory editorViewHistory = new EditorViewHistory();
-            SysUser sysUser = new SysUser();
-            sysUser.setUserId(taskVO.getUser().getUserId());
-            sysUser = findEntityById(SysUser.class,sysUser.getUserId());
-            editorViewHistory.setTbTask(tbTask);
-            editorViewHistory.setSysUser(sysUser);
-            editorViewHistory.setCreateTime(new Date());
-            this.save(editorViewHistory);
+            long pubUserId = tbTask.getSysUser().getUserId();
+            long viewUserId = taskVO.getUser().getUserId();
+            if(pubUserId!=viewUserId) {
+                EditorViewHistory editorViewHistory = new EditorViewHistory();
+                SysUser sysUser = new SysUser();
+                sysUser.setUserId(viewUserId);
+                sysUser = findEntityById(SysUser.class, sysUser.getUserId());
+                editorViewHistory.setTbTask(tbTask);
+                editorViewHistory.setSysUser(sysUser);
+                editorViewHistory.setCreateTime(new Date());
+                this.save(editorViewHistory);
+            }
         }
     }
 }

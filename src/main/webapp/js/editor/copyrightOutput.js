@@ -1,8 +1,15 @@
 /**
- * Created by ohj on 2016/10/21.
+ * Created by ohj on 2017/12/6.
  */
+var upload1;
+var upload2;
 $(function () {
-    $('#transForm').bootstrapValidator({
+    var eBookTypes = $("#eBookType");
+    eBookTypes.select2({
+        placeholder: "电子书类型选择",
+        allowClear: true
+    });
+    $('#bookForm').bootstrapValidator({
         message: '验证失败!',
         excluded: [':disabled', ':hidden', ':not(:visible)'],
         feedbackIcons: {
@@ -15,74 +22,59 @@ $(function () {
             submitForm(form);
         },
         fields: {
-            bookname: {
+            classId:{
+                validators: {
+                    notEmpty: {
+                        message: '请选择分类!'
+                    }
+                }
+            },
+            copyrightType: {
+                validators: {
+                    notEmpty: {
+                        message: '请选择版权类型!'
+                    }
+                }
+            },
+            copyrightDescript: {
+                validators: {
+                    notEmpty: {
+                        message: '版权及翻译情况说明不能为空!'
+                    }
+                }
+            },
+            bookname:{
                 validators: {
                     notEmpty: {
                         message: '书名不能为空!'
                     }
                 }
             },
-            author: {
+            author:{
+               validators: {
+                   notEmpty: {
+                       message: '作者不能为空!'
+                   }
+
+               }
+            },
+            authorIntroduction:{
+               validators: {
+                   notEmpty: {
+                       message: '作者简介不能为空!'
+                   }
+               }
+            },
+            bookIntroduction:{
                 validators: {
                     notEmpty: {
-                        message: '作者不能为空!'
-                    }
-                }
-            },
-            sourceLanguage: {
-                validators: {
-                    notEmpty: {
-                        message: '原文语种不能为空!'
-                    }
-                }
-            },
-            targetLanguage: {
-                validators: {
-                    notEmpty: {
-                        message: '目标语种不能为空!'
-                    }
-                }
-            },
-            words: {
-                validators: {
-                    digits: {
-                        message: '字数只能输入数字!'
-                    }
-                }
-            },
-            transContent:{
-                validators: {
-                    notEmpty: {
-                        message: '试译内容不能为空!'
-                    }
-                }
-            },
-            transExpirationDate:{
-                validators: {
-                    //notEmpty: {
-                    //    message: '试译截止时间不能为空!'
-                    //},
-                    data: {
-                        message: '试译截止时间输入错误!'
-                    }
-                }
-            },
-            'fileselect[]':{
-                validators: {
-                    notEmpty: {
-                        message: '请上传封面!'
-                    },
-                    file: {
-                        extension: 'jpeg,jpg,png,bmp',
-                        type: 'image/jpeg,image/png,image/x-ms-bmp',
-                        maxSize: 1024 * 1024 * 10,   // 10 MB
-                        message: '请上传大小不超过10MB的jpeg,jpg,png,bmp文件!'
+                        message: '中文简介不能为空!'
                     }
                 }
             }
         }
     });
-    $('#upload').Huploadify({
+    upload1 = $('#upload1').Huploadify({
         auto:true,
         multi:false,
         removeTimeout:9999999,
@@ -91,7 +83,6 @@ $(function () {
         buttonText:'上传图书封面',
         fileSizeLimit:10240,
         queueSizeLimit  : 1,
-        //btnClass : 'btn photo-add',
         fileTypeExts:'*.jpeg;*.jpg;*.png;*.bmp',
         uploader:APP_BASE+'/task/upload',
         onUploadSuccess: function (file, data, response) {
@@ -107,11 +98,10 @@ $(function () {
             layer.alert('上传文件出错！'+errorString+"====="+errorMsg);
         }
     });
-
 });
 
 function submitForm(form){
-    $.post(APP_BASE+"/task/trans/publish", form.serialize(), function(result) {
+    $.post(APP_BASE+"/task/editor/pubCopyRightOutput", form.serialize(), function(result) {
         if (result.success) {
             layer.alert(result.msg, {
                 skin: 'layui-layer-molv', //样式类名
