@@ -1,14 +1,21 @@
 package com.hugo.controller.base;
 
+import com.hugo.common.util.Config;
 import com.hugo.common.util.FileUtil;
 import com.hugo.common.util.json.JsonUtil;
+import com.hugo.util.ContextUtil;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.file.Files;
@@ -25,7 +32,7 @@ public class BaseController {
 
 
     /**
-     * 返回字符串
+     * 返回json
      * @param response
      * @param json
      */
@@ -42,48 +49,6 @@ public class BaseController {
             out.close();
         } catch (IOException e) {
             log.error("json返回字符串错误", e);
-        }
-    }
-
-    /**
-     * 返回集合
-     * @param response
-     * @param jsons
-     */
-    public void outJsonList(HttpServletResponse response, List<?> jsons) {
-        response.setContentType("text/javascript;charset=UTF-8");
-        response.setHeader("Cache-Control","no-store max-age=0 no-cache must-revalidate");
-        response.addHeader("Cache-Control","post-check=0 pre-check=0");
-        response.setHeader("Pragma","no-cache");
-
-        try {
-            PrintWriter out = response.getWriter();
-            out.print(JsonUtil.objectToJson(jsons));
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            log.error("json返回集合错误", e);
-        }
-    }
-
-    /**
-     * 返回集合
-     * @param response
-     * @param jsons
-     */
-    public void outJsonObject(HttpServletResponse response, Object jsons) {
-        response.setContentType("application/json;charset=UTF-8");
-        response.setHeader("Cache-Control","no-store max-age=0 no-cache must-revalidate");
-        response.addHeader("Cache-Control","post-check=0 pre-check=0");
-        response.setHeader("Pragma","no-cache");
-
-        try {
-            PrintWriter out = response.getWriter();
-            out.print(JsonUtil.objectToJson(jsons));
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            log.error("json返回集合错误", e);
         }
     }
 
@@ -138,16 +103,7 @@ public class BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if(null != out) {
-                    out.close();
-                }
-                if(null != in) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            close(out,in);
         }
     }
 
@@ -177,16 +133,7 @@ public class BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if(null != out) {
-                    out.close();
-                }
-                if(null != in) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            close(out,in);
         }
     }
 
@@ -204,19 +151,39 @@ public class BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if(null != out) {
-                    out.close();
-                }
-                if(null != in) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            close(out,in);
         }
     }
 
+    /**
+     * 文件上传
+     * @param request
+     * @param inputFileName
+     * @return
+     * @throws IOException
+     */
+    protected Map<String,Object> uploadFile(HttpServletRequest request, String inputFileName) throws IOException{
+        String path = Config.getConfig("serverFile.path", "");
+        DefaultMultipartHttpServletRequest defaultRequest = (DefaultMultipartHttpServletRequest) request;
+        String username = ContextUtil.getUserName();
+        MultiValueMap<String, MultipartFile> fileMap = defaultRequest.getMultiFileMap();
+        if (fileMap.containsKey("file"))
+            inputFileName = "file";
+        List<MultipartFile> fileList = fileMap.get(inputFileName);
+        String filePath = "";
+        for(MultipartFile file : fileList){
+            String fileName = file.getOriginalFilename();
+            String storeName = FileUtil.getRandName(fileName);
+            String storePath = File.separator+username+FileUtil.getDatePath();
+            filePath = storePath+storeName;
+            String savePath = path+filePath;
+            FileUtil.mkDirs(path+storePath);
+            File saveFile = new File(savePath);
+            FileUtils.copyInputStreamToFile(file.getInputStream(), saveFile);
+
+        }
+        return jsonResult(true,filePath);
+    }
     /**
      * 文件下载
      * @param response
@@ -238,16 +205,7 @@ public class BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                if(null != out) {
-                    out.close();
-                }
-                if(null != in) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            close(out,in);
         }
     }
 
@@ -269,5 +227,18 @@ public class BaseController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+    private void close(OutputStream out,InputStream in){
+        try {
+            if(null != out) {
+                out.close();
+            }
+            if(null != in) {
+                in.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

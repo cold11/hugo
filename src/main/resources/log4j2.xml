@@ -12,9 +12,12 @@
         <Logger name="java.sql.ResultSet" level="error" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
-        <Logger name="com.hugo.controller" level="info" additivity="false">
+        <Logger name="com.hugo" level="info" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
+        <!--<Logger name="com.hugo.controller" level="info" additivity="false">-->
+            <!--<AppenderRef ref="Console" />-->
+        <!--</Logger>-->
         <Logger name="com.hugo.interceptor.LogInterceptor" level="warn" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>

@@ -171,25 +171,26 @@ public class TaskController extends BaseController {
     @RequestMapping(value = "/upload",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String,Object> upload(HttpServletRequest request, String inputFileName) throws IOException {
-        String path = Config.getConfig("serverFile.path","");
-        DefaultMultipartHttpServletRequest defaultRequest = (DefaultMultipartHttpServletRequest) request;
-        String username = ContextUtil.getUserName();
-        MultiValueMap<String, MultipartFile> fileMap = defaultRequest.getMultiFileMap();
-        if (fileMap.containsKey("file"))
-            inputFileName = "file";
-        List<MultipartFile> fileList = fileMap.get(inputFileName);
-        String filePath = "";
-        for(MultipartFile file : fileList){
-            String fileName = file.getOriginalFilename();
-            String storeName = FileUtil.getRandName(fileName);
-            String storePath = File.separator+username+FileUtil.getDatePath();
-            filePath = storePath+storeName;
-            String savePath = path+filePath;
-            FileUtil.mkDirs(path+storePath);
-            File saveFile = new File(savePath);
-            FileUtils.copyInputStreamToFile(file.getInputStream(), saveFile);
-
-        }
-        return jsonResult(true,filePath);
+//        String path = Config.getConfig("serverFile.path","");
+//        DefaultMultipartHttpServletRequest defaultRequest = (DefaultMultipartHttpServletRequest) request;
+//        String username = ContextUtil.getUserName();
+//        MultiValueMap<String, MultipartFile> fileMap = defaultRequest.getMultiFileMap();
+//        if (fileMap.containsKey("file"))
+//            inputFileName = "file";
+//        List<MultipartFile> fileList = fileMap.get(inputFileName);
+//        String filePath = "";
+//        for(MultipartFile file : fileList){
+//            String fileName = file.getOriginalFilename();
+//            String storeName = FileUtil.getRandName(fileName);
+//            String storePath = File.separator+username+FileUtil.getDatePath();
+//            filePath = storePath+storeName;
+//            String savePath = path+filePath;
+//            FileUtil.mkDirs(path+storePath);
+//            File saveFile = new File(savePath);
+//            FileUtils.copyInputStreamToFile(file.getInputStream(), saveFile);
+//
+//        }
+//        return jsonResult(true,filePath);
+        return uploadFile(request,inputFileName);
     }
 }

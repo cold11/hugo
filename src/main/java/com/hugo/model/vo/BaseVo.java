@@ -1,11 +1,12 @@
 package com.hugo.model.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by ohj on 2016/11/7.
  */
-public class BaseVo {
+public class BaseVo implements Serializable {
 
     //@DateTimeFormat
     protected Date beginTime;
