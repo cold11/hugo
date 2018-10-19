@@ -39,7 +39,7 @@
     <ehcache-web.version>2.0.4</ehcache-web.version>
     <thumbnailator.version>0.4.7</thumbnailator.version>
     <java-image-scaling.version>0.8.5</java-image-scaling.version>
-    <jackson.version>2.2.4</jackson.version>
+    <jackson.version>2.9.7</jackson.version>
     <xml-apis.version>1.4.01</xml-apis.version>
     <joda-time.version>2.1</joda-time.version>
     <shiro.version>1.2.3</shiro.version>
